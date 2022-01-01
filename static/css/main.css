@@ -43,7 +43,7 @@ img {
 hr {
     width: 40%;
     height: 1px;
-    background: #738491;
+    /*background: #738491;*/
     margin: 25px auto;
 }
 
@@ -241,7 +241,7 @@ hr {
 .archive-item {
   margin: 5px 0 15px;
   padding: 0;
-  font-size: 12px;
+  font-size: 14px;
   color: #333;
 }
 
