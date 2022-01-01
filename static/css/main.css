@@ -94,6 +94,12 @@ img {
   color: #000;
 }
 
+#nav {
+  text-align: center;
+  /*position: static;
+  margin-top: 60px;*/
+}
+
 #nav h1 a {
   font-size: 35px;
   color:purple;

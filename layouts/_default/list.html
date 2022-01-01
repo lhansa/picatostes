@@ -25,6 +25,12 @@
       <span class="archive-item-date">
         {{ .Date.Format "2006-01-02" }}
       </span>
+        {{ .Summary }}
+        {{ if .Truncated }}
+        <div>
+          <a href="{{ .Permalink }}">Sigue por aquí…</a>
+        </div>
+        {{ end }}
     </article>
     {{ end }}
     {{ end }}
