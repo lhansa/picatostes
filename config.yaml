@@ -36,6 +36,7 @@ params:
     height: 50
     url: logo.png
     width: 50
+  sitename: Longitud sin anchura
 markup:
   defaultMarkdownHandler: goldmark
   goldmark:
