@@ -96,6 +96,8 @@ img {
 
 #nav h1 a {
   font-size: 35px;
+  color:purple;
+  text-align: center;
   line-height: 120%;
 }
 .posts_listing a, #nav a {
