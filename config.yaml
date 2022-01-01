@@ -20,6 +20,8 @@ menu:
       url: https://github.com/lhansa
     - name: Twitter
       url: https://twitter.com/l_hansa
+    - name: Cursos
+      url: https://lhansa.github.io/
 params:
   MathJaxCDN: //cdnjs.cloudflare.com/ajax/libs
   MathJaxVersion: 2.7.5
