@@ -96,8 +96,8 @@ img {
 
 #nav {
   text-align: center;
-  /*position: static;
-  margin-top: 60px;*/
+  position: static;
+  margin-top: 60px;
 }
 
 #nav h1 a {
