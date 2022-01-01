@@ -1,13 +1,14 @@
 ---
 title: Burbuja turística
 author: Leonardo Hansa
-date: '2021-12-25'
+date: '2021-12-26'
 slug: burbuja-tur-stica
 categories:
   - exploraciones
 tags:
   - opendata
 ---
+
 
 Te gusta viajar. Conoces otras culturas, comidas diferentes, desconectas. 
 
