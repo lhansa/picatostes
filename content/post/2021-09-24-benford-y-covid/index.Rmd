@@ -1,16 +1,14 @@
 ---
-title: Benford y COVID
+title: Benford y covid
 author: Leonardo Hansa
-date: '2020-09-22'
+date: '2021-09-24'
 slug: benford-y-covid
 categories:
   - exploraciones
 tags:
   - covid
-  - benford
   - opendata
 ---
-
 
 Hace poco vi el cuarto capítulo de la serie [Superconectados](https://www.netflix.com/es/title/81031737) y conocí a Benford. Ahora me dedico a buscarlo por todas partes, por ejemplo, entre los enfermos de Covid19. 
 
@@ -55,4 +53,5 @@ df_covid_benford %>%
 ```
 
 **Fuente.** Los datos son de [Datadista](https://raw.githubusercontent.com/datadista/datasets/master/COVID%2019/ccaa_covid19_casos.csv). El gráfico es mío, con `ggplot2`.
+
 

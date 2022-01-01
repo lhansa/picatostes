@@ -110,6 +110,15 @@ img {
 #nav ul {
   list-style-type: none;
 }
+
+#nav ul a {
+  padding-right: 32px;
+  padding-left: 32px;
+}
+
+#nav li {
+  float: left;
+}
 .posts_listing a, #nav a {
   text-decoration: none;
   color:purple;
