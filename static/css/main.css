@@ -42,9 +42,8 @@ img {
 
 hr {
     width: 40%;
-    height: 1px;
-    /*background: #738491;*/
     margin: 25px auto;
+    color: #ddd;
 }
 
 .wrapper {
