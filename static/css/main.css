@@ -18,7 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: "purple";
+  color: purple;
 }
 
 a {
@@ -92,6 +92,15 @@ img {
 
 .nav-links a:hover {
   color: #000;
+}
+
+#nav h1 a {
+  font-size: 35px;
+  line-height: 120%;
+}
+.posts_listing a, #nav a {
+  text-decoration: none;
+  color:#333333;
 }
 
 .content {
