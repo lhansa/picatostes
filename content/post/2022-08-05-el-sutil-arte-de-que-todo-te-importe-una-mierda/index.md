@@ -142,4 +142,7 @@ tags:
 - ¿Cuál es tu legado? Cómo de mejor y diferente será el mundo cuando hayas muerto?
 - Vas a morir y será porque fuiste afortunado para vivir.
 
+## Léelo
 
+- [Versión papel](https://www.amazon.es/SUTIL-ARTE-IMPORTE-MIERDA-HARPERCOLLINS/dp/8491392289?keywords=el+sutil+arte+de+que+casi+todo+te+importe&qid=1659696459&sprefix=sutil+arte%2Caps%2C135&sr=8-1&linkCode=ll1&tag=lhansa-21&linkId=e84a1d935eb8609e01d35a3f389e55c9&language=es_ES&ref_=as_li_ss_tl)
+- [Versión kindle](https://amzn.to/3Qp7ytV)
