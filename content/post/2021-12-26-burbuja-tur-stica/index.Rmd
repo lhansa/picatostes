@@ -36,7 +36,7 @@ Vas de viaje a un sitio paradisíaco. Como es paradisíaco, se pone de moda. Com
 
 Ya ves por dónde voy. 
 
-```{r tourim-plot, echo=FALSE}
+```{r tourim-plot, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(janitor)
 
