@@ -21,7 +21,7 @@ Selección personal de aforismos de [Nassim Taleb,](https://longitudsinanchura.c
 7. Nadie quiere ser completamente transparente; no para los demás y, desde luego, no para sí mismo.
 8. Francia se hizo con Argelia confiando en que el país comiera cassoulette y resulta que, ahora, Francia come cuscús.
 9. Preguntamos "¿por qué la crisis es tan profunda?" y no "¿por qué la crisis no es más profunda?"
-10. Dejar que otros ganen las batallas pequeñas es una manipulación muy poderosa.
+10. [Dejar que otros ganen las batallas pequeñas es una manipulación muy poderosa.](https://longitudsinanchura.com/2022/09/11/rompe-la-barrera-del-no/)
 11. Me pregunto cuántas personas buscarían riqueza excesiva si no conllevara una métrica de estatus.
 12. La diferencia entre amor y felicidad es que los que hablan de amor tienden a estar enamorados y los que hablan de felicidad tienden a no ser felices.
 14. A la larga es más fácil que te engañes a ti mismo que engañes a otros.
