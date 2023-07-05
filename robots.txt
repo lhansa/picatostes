@@ -1,1 +1,1 @@
-Sitemap: https://lhansa.github.io/longitud/sitemap.xml
+Sitemap: https://github.com/lhansa/longitud/sitemap.xml
