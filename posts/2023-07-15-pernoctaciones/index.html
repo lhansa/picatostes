@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Leonardo Hansa">
+<meta name="description" content="Análisis de la evolución de pernoctaciones por CCAA">
 
-<title>Longitud sin anchura -</title>
+<title>Longitud sin anchura - Pernoctaciones</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +25,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./favicon.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../favicon.png" rel="icon" type="image/png">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -63,35 +63,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Buscar"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-date','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 
 <script type="text/javascript" charset="UTF-8">
 document.addEventListener('DOMContentLoaded', function () {
@@ -109,19 +80,17 @@ cookieconsent.run({
 </script> 
   
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Longitud sin anchura</span>
     </a>
   </div>
@@ -139,208 +108,63 @@ cookieconsent.run({
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Pernoctaciones</h1>
+                  <div>
+        <div class="description">
+          Análisis de la evolución de pernoctaciones por CCAA
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">datos</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Autor/a</div>
+      <div class="quarto-title-meta-contents">
+               <p>Leonardo Hansa </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Fecha de publicación</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">15 de julio de 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-
-
-
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-Los cacharreos
-</th>
-<th>
-Fecha
-</th>
-<th>
-Descripción
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-categories="datos" data-listing-date-sort="1689379200000" data-listing-file-modified-sort="1689515638984" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-title-sort="Pernoctaciones" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2023-07-15-pernoctaciones/index.html" class="title listing-title">Pernoctaciones</a>
-</td>
-<td>
-<span class="listing-date">15 jul 2023</span>
-</td>
-<td>
-<span class="listing-description">Análisis de la evolución de pernoctaciones por CCAA</span>
-</td>
-</tr>
-<tr data-index="1" data-categories="datos" data-listing-date-sort="1687564800000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-title-sort="Cara o cruz, modo Bayes (I)" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2023-06-24-bayes-y-monedas/index.html" class="title listing-title">Cara o cruz, modo Bayes (I)</a>
-</td>
-<td>
-<span class="listing-date">24 jun 2023</span>
-</td>
-<td>
-<span class="listing-description">Experimentos estadísticos frecuentistas y bayesianos en lanzamiento de monedas.</span>
-</td>
-</tr>
-<tr data-index="2" data-categories="datos" data-listing-date-sort="1686528000000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-title-sort="Los hijos de padres altos son bajitos" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2023-06-12-regresion-a-la-media/index.html" class="title listing-title">Los hijos de padres altos son bajitos</a>
-</td>
-<td>
-<span class="listing-date">12 jun 2023</span>
-</td>
-<td>
-<span class="listing-description">La regresión a la media aplicada a alturas de padres e hijos.</span>
-</td>
-</tr>
-<tr data-index="3" data-categories="datos" data-listing-date-sort="1685577600000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-title-sort="Juegos con la correlación de la felicidad" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2023-06-01-juegos-correlacion/index.html" class="title listing-title">Juegos con la correlación de la felicidad</a>
-</td>
-<td>
-<span class="listing-date">1 jun 2023</span>
-</td>
-<td>
-<span class="listing-description">Las causualidades de la felicidad. Cacharreos con datos de felicidad</span>
-</td>
-</tr>
-<tr data-index="4" data-categories="lecturas" data-listing-date-sort="1685145600000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-title-sort="Cómo ser un estoico" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2023-05-27-como-ser-un-estoico/index.html" class="title listing-title">Cómo ser un estoico</a>
-</td>
-<td>
-<span class="listing-date">27 may 2023</span>
-</td>
-<td>
-<span class="listing-description">Notas de lectura del libro de Massimo Pigliucci</span>
-</td>
-</tr>
-<tr data-index="5" data-categories="exploraciones" data-listing-date-sort="1676764800000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-title-sort="Diferencia de edad entre parejas sentimentales en películas" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2023-02-19-hollywood-age-gaps/index.html" class="title listing-title">Diferencia de edad entre parejas sentimentales en películas</a>
-</td>
-<td>
-<span class="listing-date">19 feb 2023</span>
-</td>
-<td>
-<span class="listing-description">Buenas diferencias de edades entre parejas en películas</span>
-</td>
-</tr>
-<tr data-index="6" data-categories="lecturas" data-listing-date-sort="1662854400000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-title-sort="Rompe la barrera del no" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2022-09-11-rompe-la-barrera-del-no/index.html" class="title listing-title">Rompe la barrera del no</a>
-</td>
-<td>
-<span class="listing-date">11 sept 2022</span>
-</td>
-<td>
-<span class="listing-description">Resumen del libro Rompe la barrera del no</span>
-</td>
-</tr>
-<tr data-index="7" data-categories="lecturas" data-listing-date-sort="1662163200000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-title-sort="27 aforismos de Nassim Taleb" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2022-09-03-el-lecho-de-procusto/index.html" class="title listing-title">27 aforismos de Nassim Taleb</a>
-</td>
-<td>
-<span class="listing-date">3 sept 2022</span>
-</td>
-<td>
-<span class="listing-description">Selección de aforismos de Taleb, del Lecho de Procusto</span>
-</td>
-</tr>
-<tr data-index="8" data-categories="lecturas" data-listing-date-sort="1660003200000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12" data-listing-title-sort="Los peligros de la moralidad" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2022-08-09-los-problemas-de-la-moralidad/index.html" class="title listing-title">Los peligros de la moralidad</a>
-</td>
-<td>
-<span class="listing-date">9 ago 2022</span>
-</td>
-<td>
-<span class="listing-description">Resumen de Los peligros de la moralidad, de Pablo Malo</span>
-</td>
-</tr>
-<tr data-index="9" data-categories="exploraciones" data-listing-date-sort="1659744000000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="Mi IPC es (incluso) más alto" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2022-08-06-mi-ipc-es-incluso-m-s-alto/index.html" class="title listing-title">Mi IPC es (incluso) más alto</a>
-</td>
-<td>
-<span class="listing-date">6 ago 2022</span>
-</td>
-<td>
-<span class="listing-description">Exploración de datos del IPC</span>
-</td>
-</tr>
-<tr data-index="10" data-categories="lecturas" data-listing-date-sort="1659657600000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-title-sort="El sutil arte de que todo te importe una mierda" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2022-08-05-el-sutil-arte-de-que-todo-te-importe-una-mierda/index.html" class="title listing-title">El sutil arte de que todo te importe una mierda</a>
-</td>
-<td>
-<span class="listing-date">5 ago 2022</span>
-</td>
-<td>
-<span class="listing-description">Resumen del libro El sutil arte de que casi todo te importe una mierda</span>
-</td>
-</tr>
-<tr data-index="11" data-categories="exploraciones" data-listing-date-sort="1640476800000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-title-sort="Burbuja turística" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2021-12-26-burbuja-tur-stica/index.html" class="title listing-title">Burbuja turística</a>
-</td>
-<td>
-<span class="listing-date">26 dic 2021</span>
-</td>
-<td>
-<span class="listing-description">Exploración de datos de turismo</span>
-</td>
-</tr>
-<tr data-index="12" data-categories="lecturas" data-listing-date-sort="1633046400000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="Asalariado, Taleb habla de ti" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2022-10-01-asalariado-taleb-habla-de-ti/index.html" class="title listing-title">Asalariado, Taleb habla de ti</a>
-</td>
-<td>
-<span class="listing-date">1 oct 2021</span>
-</td>
-<td>
-<span class="listing-description"><em>Un perro alardea ante un lobo de todos los lujos y comodidades a su disposición.</em></span>
-</td>
-</tr>
-<tr data-index="13" data-categories="lecturas" data-listing-date-sort="1628294400000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-title-sort="Nate Silver describe el comienzo de una pandemia que no fue" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2022-08-07-nate-silver-describe-el-comienzo-de-una-pandemia-que-no-fue/index.html" class="title listing-title">Nate Silver describe el comienzo de una pandemia que no fue</a>
-</td>
-<td>
-<span class="listing-date">7 ago 2021</span>
-</td>
-<td>
-<span class="listing-description">Párrafo de La señal y el ruido, sobre pandemias</span>
-</td>
-</tr>
-<tr data-index="14" data-categories="lecturas" data-listing-date-sort="1590278400000" data-listing-file-modified-sort="1689515638980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-title-sort="Literatura y totalitarismo" data-listing-filename-sort="index.qmd">
-<td>
-<a href="./posts/2020-05-24-literatura-y-totalitarismo/index.html" class="title listing-title">Literatura y totalitarismo</a>
-</td>
-<td>
-<span class="listing-date">24 may 2020</span>
-</td>
-<td>
-<span class="listing-description">Párrafo de un ensayo de George Orwell</span>
-</td>
-</tr>
-</tbody>
-
-</table>
-<div class="listing-no-matching d-none">
-No hay resultados
+<p>Me preocupa el turismo: viajamos demasiado.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/plot-1.png" class="img-fluid" width="672"></p>
 </div>
-</div></main> <!-- /main -->
+</div>
+<p>La pandemia parecía haber frenado el ritmo, pero la tendencia vuelve a ser creciente en sitios como Madrid, Canarias, el País Vasco…</p>
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
