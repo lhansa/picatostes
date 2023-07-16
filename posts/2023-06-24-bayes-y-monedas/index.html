@@ -263,13 +263,13 @@ probability of success
 <p>Primero, construyes una tabla en la que tienes el número de caras obtenido en función de la probabilidad de obtener cara.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>   p_priori number_of_heads
-1 0.7515684              71
-2 0.9402672              92
-3 0.3696869              32
-4 0.5615640              49
-5 0.5282252              56
-6 0.5276176              50</code></pre>
+<pre><code>    p_priori number_of_heads
+1 0.19792775              20
+2 0.46293787              45
+3 0.06237205               6
+4 0.03584420               3
+5 0.36296412              37
+6 0.25188900              23</code></pre>
 </div>
 </div>
 <p>En esa tabla podemos quedarnos solo con los casos en los que obtienes 60 caras. Y en esos casos observas la probabilidad de obtener cara.</p>
@@ -283,7 +283,7 @@ probability of success
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.5017  0.5753  0.6018  0.6017  0.6328  0.7157 </code></pre>
+ 0.4829  0.5621  0.5931  0.5966  0.6339  0.7277 </code></pre>
 </div>
 </div>
 <p>Esos números ya no siguen la distribución uniforme a priori de antes, en la que indicabas que no sabías nada de la moneda.</p>
@@ -538,7 +538,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp("https:\/\/github\.com\/lhansa\/longitud");
+      var filterRegex = new RegExp("https:\/\/longitudsinanchura\.com");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href);
     }
