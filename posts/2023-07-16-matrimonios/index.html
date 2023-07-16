@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Leonardo Hansa">
-<meta name="description" content="Experimentos estadísticos frecuentistas y bayesianos en lanzamiento de monedas.">
+<meta name="description" content="Análisis de la evolución de matrimonios y nacimientos y muertes">
 
-<title>Longitud sin anchura - Cara o cruz, modo Bayes (I)</title>
+<title>Longitud sin anchura - Matrimonios y nacimientos</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -145,10 +111,10 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Cara o cruz, modo Bayes (I)</h1>
+      <h1 class="title">Matrimonios y nacimientos</h1>
                   <div>
         <div class="description">
-          Experimentos estadísticos frecuentistas y bayesianos en lanzamiento de monedas.
+          Evolución anual de matrimonios, nacimientos y defunciones en España. Los matrimonios están decreciendo. ¿Será porque la institución del matrimonio está caduca? ¿Será que ya no aporta nada? ¿O sí aporta pero los jóvenes no le vemos interés, ignorantes nosotros?
         </div>
       </div>
                           <div class="quarto-categories">
@@ -170,7 +136,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">24 de junio de 2023</p>
+        <p class="date">16 de julio de 2023</p>
       </div>
     </div>
     
@@ -188,122 +154,94 @@ cookieconsent.run({
 
 
 
-<p>Tienes una moneda, aparentemente no trucada, y la lanzas <strong>100 veces.</strong></p>
-<p>Esperarías que 50 veces saliera cara, ¿no? Más o menos.</p>
-<p>Pues sale <strong>60 veces.</strong></p>
-<p>¿Sigues pensando que no está trucada?</p>
-<section id="el-modo-frecuentista" class="level2">
-<h2 class="anchored" data-anchor-id="el-modo-frecuentista">El modo frecuentista</h2>
-<p>Puedes plantear el problema así:</p>
-<ul>
-<li>Realizas el experimento 10.000 veces.</li>
-<li>O sea, lanzas la moneda 100 veces y cuentas, las caras; lo haces otra vez; y otra… y así 10.000 veces.</li>
-</ul>
-<p>¿Cuántas de esas veces has obtenido por lo menos 60 caras?</p>
-<p>Las que marco en el gráfico:</p>
+<p>Estoy muy preocupado por el Matrimonio: <strong>se está viniendo abajo.</strong></p>
+<p>A ver, se sigue casando mucha gente.</p>
+<p>Pero con los años la tendencia decrece.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/frequentist-1.png" class="img-fluid" width="672"></p>
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">year</th>
+<th style="text-align: right;">nacimientos</th>
+<th style="text-align: right;">matrimonios</th>
+<th style="text-align: right;">defunciones</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2021</td>
+<td style="text-align: right;">337380</td>
+<td style="text-align: right;">148588</td>
+<td style="text-align: right;">450744</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2020</td>
+<td style="text-align: right;">341315</td>
+<td style="text-align: right;">90670</td>
+<td style="text-align: right;">493776</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2019</td>
+<td style="text-align: right;">360617</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2018</td>
+<td style="text-align: right;">372777</td>
+<td style="text-align: right;">167613</td>
+<td style="text-align: right;">427721</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2017</td>
+<td style="text-align: right;">393181</td>
+<td style="text-align: right;">173626</td>
+<td style="text-align: right;">424523</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2016</td>
+<td style="text-align: right;">410583</td>
+<td style="text-align: right;">175343</td>
+<td style="text-align: right;">410611</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2015</td>
+<td style="text-align: right;">420290</td>
+<td style="text-align: right;">168910</td>
+<td style="text-align: right;">422568</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2014</td>
+<td style="text-align: right;">427595</td>
+<td style="text-align: right;">162554</td>
+<td style="text-align: right;">395830</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2013</td>
+<td style="text-align: right;">425715</td>
+<td style="text-align: right;">156446</td>
+<td style="text-align: right;">390419</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2012</td>
+<td style="text-align: right;">454648</td>
+<td style="text-align: right;">168556</td>
+<td style="text-align: right;">402950</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p>Esa área es el p-valor de este test:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(heads, flips, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Exact binomial test
-
-data:  heads and flips
-number of successes = 60, number of trials = 100, p-value = 0.02844
-alternative hypothesis: true probability of success is greater than 0.5
-95 percent confidence interval:
- 0.5129758 1.0000000
-sample estimates:
-probability of success 
-                   0.6 </code></pre>
-</div>
-</div>
-</section>
-<section id="qué-hay-mal-aquí" class="level2">
-<h2 class="anchored" data-anchor-id="qué-hay-mal-aquí">¿Qué hay mal aquí?</h2>
-<p>Lo malo de esto es que ese planteamiento te da la probabilidad de tus datos, en el supuesto de que la moneda no esté trucada (muy baja, por cierto).</p>
-<p>Pero es que tú no quieres eso.</p>
-<p>Tú ya lanzaste la moneda 100 veces, y salió cara 60. No quieres la probabilidad de que eso ocurra… ¡porque eso ya ha ocurrido!</p>
-<p>Lo que quieres saber es si es probable o no que la moneda esté trucada.</p>
-<p>Si no lo está, la probabilidad de obtener cara es 0,5.</p>
-<p>Ahora bien, dado que has obtenido cara 60 veces de 100, ¿cuál es probabilidad real de obtener cara en esa moneda?</p>
-</section>
-<section id="el-modo-bayesiano" class="level2">
-<h2 class="anchored" data-anchor-id="el-modo-bayesiano">El modo bayesiano</h2>
-<section id="priori" class="level3">
-<h3 class="anchored" data-anchor-id="priori">Priori</h3>
-<p>Supón que no tienes ni idea de si la moneda está trucada o no. O sea, la probabilida de obtener cara va entre 0 y 1.</p>
-<p>Sí, normalmente es 0,5, pero como ahora no sabes nada de la moneda, vas a suponer que puedes obtener cara siempre, o nunca, o pocas veces, o muchas… pues eso, cualquier número entre 0 y 1.</p>
-<p>El siguiente gráfico es una aproximación a cómo expresamos eso visualmente. La idea es que la probabilidad de obtener cara sigue una distribución uniforme entre 0 y 1.</p>
-<p>Eso es tu <strong>información a priori</strong>: no tienes ni idea.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/priori-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="modelo-generativo" class="level3">
-<h3 class="anchored" data-anchor-id="modelo-generativo">Modelo generativo</h3>
-<p>Ahora vas a simular varias situaciones de lanzamientos de la moneda 100 veces. Pero en cada experimento, la probabilidad de obtener cara varía, según la distribución uniforme que has asumido antes.</p>
-<p>Esta es la distribución del número de caras que obtienes en este caso:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/gen-mod-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Visto así, parece poca cosa, pero ya tienes la información suficiente para tener mejor idea de la probabilidad de obtener cara.</p>
-</section>
-<section id="posteriori" class="level3">
-<h3 class="anchored" data-anchor-id="posteriori">Posteriori</h3>
-<p>Primero, construyes una tabla en la que tienes el número de caras obtenido en función de la probabilidad de obtener cara.</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>   p_priori number_of_heads
-1 0.8633949              76
-2 0.9783964              99
-3 0.5309740              58
-4 0.8583691              84
-5 0.3031540              33
-6 0.6326429              64</code></pre>
-</div>
-</div>
-<p>En esa tabla podemos quedarnos solo con los casos en los que obtienes 60 caras. Y en esos casos observas la probabilidad de obtener cara.</p>
-<p>Esa probabilidad sigue esta distribución:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/posteriori1-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Si prefieres números:</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.4679  0.5699  0.6038  0.5995  0.6310  0.7546 </code></pre>
-</div>
-</div>
-<p>Esos números ya no siguen la distribución uniforme a priori de antes, en la que indicabas que no sabías nada de la moneda.</p>
-<p>Ahora ya sabes entre qué números puede variar esa probabilidad.</p>
-</section>
-<section id="datos" class="level3">
-<h3 class="anchored" data-anchor-id="datos">Datos</h3>
-<p>Esos valores a posteriori los hemos calculado porque en tu experimento inicial conseguiste 60 caras.</p>
-<p>Pero si tus datos fueran otros, tu modelo generativo te permite obtener el posteriori de nuevo.</p>
-<p>Solo tienes que moverte entre los resultados.</p>
-<p>Aquí tienes, visualmente, en qué consiste la creación de los posteriori, dados los datos:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/marginal-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/evolucion-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Cada vez muere más gente, eso sí que sube, pero imagino que ayuda que cada vez seamos más (si cada vez nacemos menos, imagino que se debe a la inmigración, aunque eso no lo he mirado):</p>
+<script type="text/javascript">var script = document.createElement('script');function lastNodo(obj){if (obj.children.length>0)return lastNodo(obj.children[obj.children.length-1]);else return obj;}script.setAttribute('type', 'text/javascript');script.setAttribute('src', 'https://www.ine.es/menus/plantillas/jaxiT3/js/widget.js');script.dataPost='t=56934&ratio=0.9&nocab=1&btnWidgetGrafico=&p_widget_color=559B98&rows=p_per&columns=113325&columns=113326&columns=p_oper&oper=450&cri113325=6275891&cri113326=6276005&periodo=20~2023&periodo=19~2023&periodo=22~2022&periodo=21~2022&periodo=20~2022&periodo=19~2022&periodo=22~2021&periodo=21~2021&periodo=20~2021&periodo=19~2021&periodo=22~2020&periodo=21~2020&periodo=20~2020&periodo=19~2020&periodo=22~2019&periodo=21~2019&periodo=20~2019&periodo=19~2019&periodo=22~2018&periodo=21~2018&periodo=20~2018&periodo=19~2018&periodo=22~2017&periodo=21~2017&periodo=20~2017&periodo=19~2017&periodo=22~2016&periodo=21~2016&periodo=20~2016&periodo=19~2016&periodo=22~2015&periodo=21~2015&periodo=20~2015&periodo=19~2015&periodo=22~2014&periodo=21~2014&periodo=20~2014&periodo=19~2014&periodo=22~2013&periodo=21~2013&periodo=20~2013&periodo=19~2013&periodo=22~2012&periodo=21~2012&periodo=20~2012&periodo=19~2012&periodo=22~2011&periodo=21~2011&periodo=20~2011&periodo=19~2011&periodo=22~2010&periodo=21~2010&periodo=20~2010&periodo=19~2010&periodo=22~2009&periodo=21~2009&periodo=20~2009&periodo=19~2009&periodo=22~2008&periodo=21~2008&periodo=20~2008&periodo=19~2008&periodo=22~2007&periodo=21~2007&periodo=20~2007&periodo=19~2007&periodo=22~2006&periodo=21~2006&periodo=20~2006&periodo=19~2006&periodo=22~2005&periodo=21~2005&periodo=20~2005&periodo=19~2005&periodo=22~2004&periodo=21~2004&periodo=20~2004&periodo=19~2004&periodo=22~2003&periodo=21~2003&periodo=20~2003&periodo=19~2003&periodo=22~2002&periodo=21~2002&periodo=20~2002&periodo=19~2002&columnas_grafico=per&ejeHorizontal=per&tipoGrafico=lineas&L=0&p_widgetFormGrafico=1&w_legend=false&w_contorno_col=800080&w_titulo=true&w_ancho_widget=&w_alto_widget=';script.padre=lastNodo(document.getElementsByTagName('body')[0]);script.onload = function(event){var aux=this.padre;this.padre=null;if (aux!=null)PintaWidgetGrafica(aux,this.dataPost);};script.onreadystatechange = function () {if (this.readyState === 'complete' || this.readyState === 'loaded') {var aux=this.padre;this.padre=null;if (aux!=null)PintaWidgetGrafica(aux,this.dataPost);}};document.head.appendChild(script);</script>
 
 
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
