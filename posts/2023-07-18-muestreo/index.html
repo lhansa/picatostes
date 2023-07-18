@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Leonardo Hansa">
-<meta name="description" content="Experimentos estadísticos frecuentistas y bayesianos en lanzamiento de monedas.">
+<meta name="description" content="Explicación de conceptos sobre muestreo (sampling) estadístico">
 
-<title>Longitud sin anchura - Cara o cruz, modo Bayes (I)</title>
+<title>Longitud sin anchura - Muestreo (I)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -114,6 +80,8 @@ cookieconsent.run({
 </script> 
   
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -145,10 +113,10 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Cara o cruz, modo Bayes (I)</h1>
+      <h1 class="title">Muestreo (I)</h1>
                   <div>
         <div class="description">
-          Experimentos estadísticos frecuentistas y bayesianos en lanzamiento de monedas.
+          Un repaso a algunos conceptos introductorios al muestreo estadístico
         </div>
       </div>
                           <div class="quarto-categories">
@@ -170,7 +138,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">24 de junio de 2023</p>
+        <p class="date">18 de julio de 2023</p>
       </div>
     </div>
     
@@ -188,121 +156,209 @@ cookieconsent.run({
 
 
 
-<p>Tienes una moneda, aparentemente no trucada, y la lanzas <strong>100 veces.</strong></p>
-<p>Esperarías que 50 veces saliera cara, ¿no? Más o menos.</p>
-<p>Pues sale <strong>60 veces.</strong></p>
-<p>¿Sigues pensando que no está trucada?</p>
-<section id="el-modo-frecuentista" class="level2">
-<h2 class="anchored" data-anchor-id="el-modo-frecuentista">El modo frecuentista</h2>
-<p>Puedes plantear el problema así:</p>
+<p>Vi en Twitter esto:</p>
+<blockquote class="twitter-tweet blockquote">
+<p lang="es" dir="ltr">
+Las encuestas lo han dejado claro.<br>Saben lo que vas a votar.<br>Han decidido que el <a href="https://twitter.com/hashtag/23J?src=hash&amp;ref_src=twsrc%5Etfw">#23J</a> PP y Vox gobernarán este país.<br>¿Quito importancia a sus estimaciones?<br>No, porque generalizan la opinión de que no hay nada que hacer.<br>Pero no es cierto. <br>No hay nada escrito.<br>Si votamos, ganamos <a href="https://t.co/LUFoLm3WHT">pic.twitter.com/LUFoLm3WHT</a>
+</p>
+— Carlos Sánchez Mato🔻✳️ (<span class="citation" data-cites="carlossmato">@carlossmato</span>) <a href="https://twitter.com/carlossmato/status/1681041667573334019?ref_src=twsrc%5Etfw">July 17, 2023</a>
+</blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>¿Es inútil el muestreo?</p>
+<p>Si lo haces mal, sí. Como todo.</p>
+<p>Repaso algunos conceptos relacionados con el muestreo, sacados principalmente del curso de <em>Sampling with R</em> de Datacamp.</p>
+<section id="de-qué-sirve-el-muestreo" class="level2">
+<h2 class="anchored" data-anchor-id="de-qué-sirve-el-muestreo">De qué sirve el muestreo</h2>
+<p>Antes de las elecciones se hacen encuestas sobre intención de voto. ¿Qué se te viene a la mente con estas encuestas?</p>
+<p>Pues que nunca te preguntan a ti.</p>
+<p>(Sí, ya, justo quizá a ti sí, una vez… pero no suele ocurrir. Lo normal es que nunca te hayan preguntado).</p>
+<p>A la mayoría de las personas no les preguntan nada.</p>
+<p>Pero un muestreo adecuado puede hacer que eso tenga valor.</p>
+<p>Es más, <strong>un muestreo puede ser tu única opción para estudiar unos datos.</strong></p>
 <ul>
-<li>Realizas el experimento 10.000 veces.</li>
-<li>O sea, lanzas la moneda 100 veces y cuentas, las caras; lo haces otra vez; y otra… y así 10.000 veces.</li>
+<li>En un caso como el de las encuestas, no tienen recursos para encuestar a todos los votantes de un país como, pongamos, España (<a href="https://www.boe.es/boe/dias/2019/12/02/pdfs/BOE-A-2019-17344.pdf">unos 37 millones de personas</a>)</li>
+<li>En un análisis de sangre, no estudian todos los litros de sangre de tu cuerpo: te sacan una muestra y generalizan (sacarte toda la sangre es peligroso: no lo intentes).</li>
+<li>Si tienes una base de datos con millones de clientes, algún algoritmo de <em>machine learning</em> puede suponer mucha carga de trabajo para tu ordenador (no todos tenemos presupuesto para contratar servidores enormes en Amazon). )</li>
 </ul>
-<p>¿Cuántas de esas veces has obtenido por lo menos 60 caras?</p>
-<p>Las que marco en el gráfico:</p>
+<p>¿Tiene sentido siempre el muestreo? No.&nbsp;Si estás corrigiendo unos exámenes de unos alumnos, no tiene sentido que corrijas un porcentaje y extrapoles los demás por ahorrarte el tiempo.</p>
+</section>
+<section id="muestreo-aleatorio-sistemático" class="level2">
+<h2 class="anchored" data-anchor-id="muestreo-aleatorio-sistemático">Muestreo aleatorio sistemático</h2>
+<p>Si has estudiado algo de estadística, te habrás topado con el muestreo aleatorio. Consiste en seleccionar las observaciones para una muestra sin ningún criterio en concreto: esta sí, esta no, esta sí, esta también porque sí, esta no, esta tampoco…</p>
+<p>Me gusta un <a href="https://allisonhorst.github.io/palmerpenguins/">conjunto de datos con métricas de pingüinos</a> disponible en cualquier software estadístico que se precie.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/frequentist-1.png" class="img-fluid" width="672"></p>
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 11%">
+<col style="width: 16%">
+<col style="width: 15%">
+<col style="width: 20%">
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">species</th>
+<th style="text-align: left;">island</th>
+<th style="text-align: right;">bill_length_mm</th>
+<th style="text-align: right;">bill_depth_mm</th>
+<th style="text-align: right;">flipper_length_mm</th>
+<th style="text-align: right;">body_mass_g</th>
+<th style="text-align: left;">sex</th>
+<th style="text-align: right;">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.1</td>
+<td style="text-align: right;">18.7</td>
+<td style="text-align: right;">181</td>
+<td style="text-align: right;">3750</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.5</td>
+<td style="text-align: right;">17.4</td>
+<td style="text-align: right;">186</td>
+<td style="text-align: right;">3800</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">40.3</td>
+<td style="text-align: right;">18.0</td>
+<td style="text-align: right;">195</td>
+<td style="text-align: right;">3250</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">36.7</td>
+<td style="text-align: right;">19.3</td>
+<td style="text-align: right;">193</td>
+<td style="text-align: right;">3450</td>
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">2007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Torgersen</td>
+<td style="text-align: right;">39.3</td>
+<td style="text-align: right;">20.6</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: right;">3650</td>
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">2007</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
-<p>Esa área es el p-valor de este test:</p>
+<p>Una de las métricas que tiene es la longitud del pico, en milímetros.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(heads, flips, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/histograma1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>¿Cómo cambia eso si lo dibujas sobre una muestra aleatoria de los pingüinos?</p>
+<p>Lo primero es elegir la muestra aleatoria. Supón que etiquetas a cada uno como 1, 2, 3… así hasta 344, que son todos los pingüinos que tienes.</p>
+<p>En el siguiente gráfico tienes coloreados en azul los pingüinos que eliges para tu muestra (50).</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>¿Cómo cambia la distribución de la longitud del pico en esta muestra?</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/hist2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Hemos perdido valores extremos pero se mantiene una forma parecida.</p>
+<p>Un tipo diferente de muestreo es el sistemático, que consiste en hacer una selección basada en un criterio con respecto a la posición de la observación en el conjunto de datos. En el siguiente gráfico, pinto en azul al pingüino 1, 7, 13, etc… o sea, selecciono al primer pingüino de cada 6.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/samplesist-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/hist3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Aparte del caso extremo, la distribución no ha cambiado mucho, en parte porque la distribución de las observaciones no sigue ningún orden en concreto. Si tu tabla de datos sigue un orden, deberás valorar si ese orden afecta al sistema que eliges para muestrear tus datos.</p>
+</section>
+<section id="muestreo-estratificado" class="level2">
+<h2 class="anchored" data-anchor-id="muestreo-estratificado">Muestreo estratificado</h2>
+<p>En el conjunto de datos tenemos tres especies de pingüinos.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Algo habitual en <em>machine learning</em> forzar a mantener esa proporción diferente de especies en la muestra elegida, para que el conjunto de datos de trabajo mantenga esa distribución original.</p>
+<p>¿Pero qué pasa si no quieres que así sea?</p>
+<p>Imagina que estás estudiando si una medicación es efectiva o no. Si mantienes la proporción original, puede ser que de la especie menos representada (Chinstrap) te quedes casi sin muestra.</p>
+<p>Eso te puede venir mal, porque tú necesitas que haya muestra de todas las especies, para saber si en una especie el medicamento es más o menos efectivo.</p>
+<p>En un caso así, no querrías un muestreo estratificado, sino que forzarías incluso a que en la muestra, todos los grupos estuvieran igualmente representados.</p>
+</section>
+<section id="cómo-afecta-el-tamaño-de-la-muestra" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-afecta-el-tamaño-de-la-muestra">Cómo afecta el tamaño de la muestra</h2>
+<p>Cuando tienes a mano la población total, puedes comparar los cálculos que hagas en tu muestra con los de la población (para cuando no tengas la población, te hablaré de esto en unos días).</p>
+<p>En el caso de los pingüinos, puedo calcular la media de la longitud del pico para la población: 43.9219298.</p>
+<p>O también para la muestra que calculé antes:</p>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    Exact binomial test
-
-data:  heads and flips
-number of successes = 60, number of trials = 100, p-value = 0.02844
-alternative hypothesis: true probability of success is greater than 0.5
-95 percent confidence interval:
- 0.5129758 1.0000000
-sample estimates:
-probability of success 
-                   0.6 </code></pre>
+<pre><code># A tibble: 1 × 1
+  media_muestral
+           &lt;dbl&gt;
+1           44.6</code></pre>
 </div>
 </div>
-</section>
-<section id="qué-hay-mal-aquí" class="level2">
-<h2 class="anchored" data-anchor-id="qué-hay-mal-aquí">¿Qué hay mal aquí?</h2>
-<p>Lo malo de esto es que ese planteamiento te da la probabilidad de tus datos, en el supuesto de que la moneda no esté trucada (muy baja, por cierto).</p>
-<p>Pero es que tú no quieres eso.</p>
-<p>Tú ya lanzaste la moneda 100 veces, y salió cara 60. No quieres la probabilidad de que eso ocurra… ¡porque eso ya ha ocurrido!</p>
-<p>Lo que quieres saber es si es probable o no que la moneda esté trucada.</p>
-<p>Si no lo está, la probabilidad de obtener cara es 0,5.</p>
-<p>Ahora bien, dado que has obtenido cara 60 veces de 100, ¿cuál es probabilidad real de obtener cara en esa moneda?</p>
-</section>
-<section id="el-modo-bayesiano" class="level2">
-<h2 class="anchored" data-anchor-id="el-modo-bayesiano">El modo bayesiano</h2>
-<section id="priori" class="level3">
-<h3 class="anchored" data-anchor-id="priori">Priori</h3>
-<p>Supón que no tienes ni idea de si la moneda está trucada o no. O sea, la probabilida de obtener cara va entre 0 y 1.</p>
-<p>Sí, normalmente es 0,5, pero como ahora no sabes nada de la moneda, vas a suponer que puedes obtener cara siempre, o nunca, o pocas veces, o muchas… pues eso, cualquier número entre 0 y 1.</p>
-<p>El siguiente gráfico es una aproximación a cómo expresamos eso visualmente. La idea es que la probabilidad de obtener cara sigue una distribución uniforme entre 0 y 1.</p>
-<p>Eso es tu <strong>información a priori</strong>: no tienes ni idea.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/priori-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="modelo-generativo" class="level3">
-<h3 class="anchored" data-anchor-id="modelo-generativo">Modelo generativo</h3>
-<p>Ahora vas a simular varias situaciones de lanzamientos de la moneda 100 veces. Pero en cada experimento, la probabilidad de obtener cara varía, según la distribución uniforme que has asumido antes.</p>
-<p>Esta es la distribución del número de caras que obtienes en este caso:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/gen-mod-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Visto así, parece poca cosa, pero ya tienes la información suficiente para tener mejor idea de la probabilidad de obtener cara.</p>
-</section>
-<section id="posteriori" class="level3">
-<h3 class="anchored" data-anchor-id="posteriori">Posteriori</h3>
-<p>Primero, construyes una tabla en la que tienes el número de caras obtenido en función de la probabilidad de obtener cara.</p>
+<p>¿Son muy distintas?</p>
+<p>Una medida de esta diferencia es el error relativo:</p>
+<p><span class="math display">\[\frac{|media_{pop} - media_{sample}|}{media_{pop}}\]</span></p>
+<p>¿Cuál es la gracia?</p>
+<p>Pues que si tu tamaño muestral es muy pequeño, no hay ninguna garantía de que la media (o lo que estés midiendo) se parezca a la poblacional:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>   p_priori number_of_heads
-1 0.3028271              34
-2 0.2323240              21
-3 0.8577856              86
-4 0.4979570              53
-5 0.2980839              34
-6 0.2155849              15</code></pre>
+<pre><code># A tibble: 1 × 1
+  media_muestral
+           &lt;dbl&gt;
+1           45.8</code></pre>
 </div>
 </div>
-<p>En esa tabla podemos quedarnos solo con los casos en los que obtienes 60 caras. Y en esos casos observas la probabilidad de obtener cara.</p>
-<p>Esa probabilidad sigue esta distribución:</p>
+<p>Pero si dejas que el tamaño muestral crezca, tu cálculo se estabilizará.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/posteriori1-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/evol-sample-error2-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Si prefieres números:</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.4252  0.5610  0.5953  0.5908  0.6264  0.7204 </code></pre>
-</div>
-</div>
-<p>Esos números ya no siguen la distribución uniforme a priori de antes, en la que indicabas que no sabías nada de la moneda.</p>
-<p>Ahora ya sabes entre qué números puede variar esa probabilidad.</p>
-</section>
-<section id="datos" class="level3">
-<h3 class="anchored" data-anchor-id="datos">Datos</h3>
-<p>Esos valores a posteriori los hemos calculado porque en tu experimento inicial conseguiste 60 caras.</p>
-<p>Pero si tus datos fueran otros, tu modelo generativo te permite obtener el posteriori de nuevo.</p>
-<p>Solo tienes que moverte entre los resultados.</p>
-<p>Aquí tienes, visualmente, en qué consiste la creación de los posteriori, dados los datos:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/marginal-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
+<p>En unos días te escribo sobre cómo aproximar esto cuando no tienes acceso a la media poblacional, pero que puedas valorar si tu muestra es adecuada o no.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
