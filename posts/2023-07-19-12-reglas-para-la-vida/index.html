@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Leonardo Hansa">
-<meta name="description" content="Experimentos estadísticos frecuentistas y bayesianos en lanzamiento de monedas.">
+<meta name="description" content="Resumen sobre el libro 12 reglas para la vida, de Jordan Peterson">
 
-<title>Longitud sin anchura - Cara o cruz, modo Bayes (I)</title>
+<title>Longitud sin anchura - 12 reglas para la vida</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -145,14 +111,14 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Cara o cruz, modo Bayes (I)</h1>
+      <h1 class="title">12 reglas para la vida</h1>
                   <div>
         <div class="description">
-          Experimentos estadísticos frecuentistas y bayesianos en lanzamiento de monedas.
+          Resumen con interpretación propia sobre el libro 12 reglas para al vida, de Jordan Peterson
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">datos</div>
+                <div class="quarto-category">lecturas</div>
               </div>
                   </div>
   </div>
@@ -170,7 +136,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">24 de junio de 2023</p>
+        <p class="date">19 de julio de 2023</p>
       </div>
     </div>
     
@@ -188,121 +154,140 @@ cookieconsent.run({
 
 
 
-<p>Tienes una moneda, aparentemente no trucada, y la lanzas <strong>100 veces.</strong></p>
-<p>Esperarías que 50 veces saliera cara, ¿no? Más o menos.</p>
-<p>Pues sale <strong>60 veces.</strong></p>
-<p>¿Sigues pensando que no está trucada?</p>
-<section id="el-modo-frecuentista" class="level2">
-<h2 class="anchored" data-anchor-id="el-modo-frecuentista">El modo frecuentista</h2>
-<p>Puedes plantear el problema así:</p>
+<p><em>Comentario mío: el libro no me ha gustado. Creo que está mal planteado, porque tiene conceptos interesantes pero muy mal hilados. Pero eso: tiene conceptos interesantes. De algún capítulo no hay notas o bien porque me parecía una tontería o bien porque no tenía nada a mano para apuntar.</em></p>
+<section id="introducción" class="level2">
+<h2 class="anchored" data-anchor-id="introducción">Introducción</h2>
 <ul>
-<li>Realizas el experimento 10.000 veces.</li>
-<li>O sea, lanzas la moneda 100 veces y cuentas, las caras; lo haces otra vez; y otra… y así 10.000 veces.</li>
+<li>La pérdida de creencias grupales lleva a una vida caótica. Y la presencia de creencias grupales lleva a conflictos con otros grupos.
+<ul>
+<li>En occidente llevamos tiempo reduciendo nuestra tradición, religión y sentimientos nacionales, en parte para evitar los conflictos grupales. Pero así cada vez tendemos más a a vidas sin sentido, ni valores.</li>
+</ul></li>
+<li>la serotonina da una postura de victoria a las langostas. La octapina, de derrota.</li>
+<li>ley de price, para distribución financiera y creativa</li>
+<li>Mateo 25:29: para los que tenéis todo, se os dará más; para los que no tienen nada, todo se os quitará</li>
+<li>la tradición oral religiosa tiene más un fin moral que un fin descriptivo</li>
 </ul>
-<p>¿Cuántas de esas veces has obtenido por lo menos 60 caras?</p>
-<p>Las que marco en el gráfico:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/frequentist-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Esa área es el p-valor de este test:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(heads, flips, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Exact binomial test
+</section>
+<section id="regla-1.-enderézate-y-echa-los-hombros-hacia-atrás" class="level2">
+<h2 class="anchored" data-anchor-id="regla-1.-enderézate-y-echa-los-hombros-hacia-atrás">Regla 1. Enderézate y echa los hombros hacia atrás</h2>
+<ul>
+<li>Una langosta victoriosa tiene una postura más amplia. Y mayor proporción de serotonina que de octopamina. Inyectar serotonina en una langosta derrotada hace que cambie su postura.</li>
+<li>Las hembras dejan que los varones se peleen y luego eligen entre los más fuertes.
+<ul>
+<li>Confían en que el comportamiento de estos se calme.</li>
+<li>Es un esquema llevado a la Bella y la Bestia o 50 sombras de Grey.</li>
+</ul></li>
+<li>La naturaleza selecciona pero no es un concepto estático.
+<ul>
+<li>“En mi reino tienes que correr con todas tus fuerzas para no quedarte en el mismo lugar” (Reina, Alicia en el País de las Maravillas)</li>
+</ul></li>
+<li>Atrévete a ser un peligro</li>
+<li>Erguirse significa aceptar voluntariamente la carga del Ser.</li>
+<li>Si te presentas físciamente como alguien derrotado, la ente te tratará como alguien derrotado. Y te sentirás como tal.</li>
+<li>Si comienzas a erguirte, la gente te mirará como a tal.</li>
+</ul>
+</section>
+<section id="trátate-a-ti-mismo-como-tratarías-a-alguien-que-depende-de-ti" class="level2">
+<h2 class="anchored" data-anchor-id="trátate-a-ti-mismo-como-tratarías-a-alguien-que-depende-de-ti">2. Trátate a ti mismo como tratarías a alguien que depende de ti</h2>
+<ul>
+<li>El equilibrio entre caos y orden es importante para no frustrarnos pero que haya algo de motivación. Algo de riesgo.</li>
+<li>Incluso el jardín del Edén tenía una serpiente porque toda calma tiene un punto de caos, como el punto negro en la serpiente blanca tahoista.</li>
+<li>siempre hay un enemigo. Incluso aunque derrotáramos a todos, estaríamos nosotros mismos.</li>
+<li>Es mejor enseñar a quienes dependen de ti a que sean competentes que protegerlos demasiado.</li>
+<li>Nuestra vista (aguda) nos permite identificar rápidamente los frutos maduros de los árboles, que son los comestibles.</li>
+<li>igual que pensamos mal de otras personas, hay personas que de quienes realmente piensan mal es de sí mismas.</li>
+<li>Alguien que tiene un porqué tendrá casi siempre un cómo (Nietzsche)</li>
+</ul>
+</section>
+<section id="regla-3.-hazte-amigo-de-aquellos-que-queran-lo-mejor-para-ti" class="level2">
+<h2 class="anchored" data-anchor-id="regla-3.-hazte-amigo-de-aquellos-que-queran-lo-mejor-para-ti">Regla 3. Hazte amigo de aquellos que queran lo mejor para ti</h2>
+<ul>
+<li>Freud: compulsión de repetición. Gente que no tiene buena impresión de sí misma, busca rodearse del mismo tipo de personas que en el pasado le hicieron algún mal. Consideran que no merecen nada mejor.</li>
+<li>La gente suele aceptar o incluso magnificar su propio sufrimiento, o incluso el de los demás , si lo pueden presentar como demostración de las injusticias del mundo.</li>
+<li>Cuando metes en un grupo civilizado (un equipo de trabajo, reclusos organizados) a una persona más rebelde, el grupo no influye en el individuo, sino al revés, y el grupo empeora sus hábitos. Es más fácil ir hacia abajo.</li>
+<li>Cuando ayudas a alguien, ¿lo haces porque quieres ayudarlo? ¿O porque quieres demostrar lo bondadoso que eres?</li>
+<li>Hay quien se rodea de gente irresponsable porque en comparativa ellos están mejor. Es una comparativa fácil para hacerte creer especialmente bondadoso.</li>
+<li>Si tienes un amigo que no lo recomendarías a tu hermana, a tu padre o a tu hijo, ¿por qué lo tienes tú?</li>
+</ul>
+</section>
+<section id="regla-4.-no-te-compares-con-otro-sino-con-cómo-eras-tú-antes" class="level2">
+<h2 class="anchored" data-anchor-id="regla-4.-no-te-compares-con-otro-sino-con-cómo-eras-tú-antes">Regla 4. No te compares con otro, sino con cómo eras tú antes</h2>
+<ul>
+<li>En el mundo rural es más fácil destacar porque hay menos personas que en las ciudades.</li>
+<li>hay sobrerrepresentación de personajes famosos nacidos en pueblos.</li>
+<li>Tiempos de espuma de pomelo y helado de whisky con tabaco.</li>
+<li>“siempre habrá alguien mejor que tú” es un tópico nihilista. No aporta información esa frase.</li>
+<li>la religión se encarga de lo que es correcto. Un religioso buscará hacer lo que es correcto, lo que está bien, aunque eso simplemente sea ser obediente.</li>
+<li>Que tu te creas algo, que te etiquetes en una identidad, no significa que lo seas. Tus acciones dicen qué eres. Y eres demasiado complejo para entenderte a ti mismo.</li>
+<li>La Biblia como documento escrito durante mucho tiempo por muchos y nadie.</li>
+<li>Presta atención a lo que molesta:
+<ul>
+<li>¿Qué me molesta?</li>
+<li>es algo que podría arreglar?</li>
+<li>estaría verdaderamente dispuesto a arreglarlo?</li>
+<li>si alguna respuesta es no, busca molestaias en otro lado.</li>
+</ul></li>
+<li>No sobrestimes tu conocimiento de ti mismo.</li>
+<li>Pregúntate “qué podría hacer y estoy dispuesto a hacer para que me vida sea un poquito mejor?”. Puede ser algo tan básico como una gestión pendiente. O si crees que un tarea te va a llevar media hora y no te pones porque es mucho tiempo, dedícale 5 minutos hoy. Ayudará a que la veas como algo más asequible.</li>
+</ul>
+</section>
+<section id="regla-6.-antes-de-criticar-a-alguien-asegúrate-de-tener-tu-casa-en-perfecto-orden" class="level2">
+<h2 class="anchored" data-anchor-id="regla-6.-antes-de-criticar-a-alguien-asegúrate-de-tener-tu-casa-en-perfecto-orden">Regla 6. Antes de criticar a alguien, asegúrate de tener tu casa en perfecto orden</h2>
+<ul>
+<li>Cuando te das cuenta de las injusticias del mundo, puedes ignorarlo, puedes bucar el placer, puedes resignarte y aceptarlo o puedes tomar medidas y suicidarte.</li>
+<li>A la gente le sorprende que haya tantas masacres en EEUU o similares, pero es el primer acontecimiento narrado según la Biblia.</li>
+<li>Tolstoi entiende que no hay otra escapatoria que el asesinato para combatir las injusticias “el bien de los muertos es mejor que el bien de los vivos”</li>
+<li>los asesinos de masacres (y Caín) asesinan para contrariar el sistema, porque el mundo es injusto en sí mismo.</li>
+</ul>
+</section>
+<section id="regla-7.-dedica-tus-esfuerzos-a-hacer-cosas-con-significado-no-lo-que-más-te-convenga" class="level2">
+<h2 class="anchored" data-anchor-id="regla-7.-dedica-tus-esfuerzos-a-hacer-cosas-con-significado-no-lo-que-más-te-convenga">Regla 7. Dedica tus esfuerzos a hacer cosas con significado, no lo que más te convenga</h2>
+<ul>
+<li>La vida es sufrimiento.</li>
+<li>“No tentaraás al señor tu Dios” ( Mateo 4:7) No renuncies a tu responsabilidad. No pidas que una tercera persona intervenga en tu favor cuando tú tienes margen de acción y no lo estás aprovechando.</li>
+<li>el socialismo se motiva más por una motivación de odio a los ricos y triunfadores más que en un verdadero interés por los pobres.</li>
+<li>los socialistas creen en el dinero igual que los capitalistas y acaban siendo capitalistas.</li>
+</ul>
+</section>
+<section id="regla-9.-da-por-hecho-que-la-persona-a-la-que-escuchas-sabe-algo-que-tú-no-sabes" class="level2">
+<h2 class="anchored" data-anchor-id="regla-9.-da-por-hecho-que-la-persona-a-la-que-escuchas-sabe-algo-que-tú-no-sabes">Regla 9. Da por hecho que la persona a la que escuchas sabe algo que tú no sabes</h2>
+<ul>
+<li>Cuando participas en una verdadera conversación, hablas y escuchas, pero sobre todo escuchas.</li>
+<li>Puedes ser bastante listo si te limitas a callarte.</li>
+<li>No sabemos escuchar. Tendemos a evaluar porque escuchar es peligroso. Puede cambiarte (Carl Rogers)</li>
+<li>regla: cuando estés en una discusión, antes de aportar una idea tuya o una opinión, tienes que repetir la idea anterior que ha dicho la otra persona, para que ella valide si lo has entendido bien.</li>
+<li>Al escuchar, permites que la otra persona piense. La primera vez que alguien expone algo en voz alta, llega a contradicciones y tiene que orientarlas, deciendo qué olvida de sus anécdotas para dejar claros sus sentimientos.</li>
+<li>si una conversación te resulta aburrida, es que no estás escuchando.</li>
+<li>la gente organiza su cabeza conversando</li>
+</ul>
+</section>
+<section id="regla-10.-cuando-hables-procura-expresarte-con-precisión" class="level2">
+<h2 class="anchored" data-anchor-id="regla-10.-cuando-hables-procura-expresarte-con-precisión">Regla 10. Cuando hables, procura expresarte con precisión</h2>
+<ul>
+<li>Los objetos como extensión de un sistema, de un árbol con ramas u hojas. No pasa nada porque se rompa un objeto, porque el sistema sigue en pie.</li>
+<li>tú no acabas en lo que acota tu piel. Llegas más allá. Si usas una herramienta, pasa a formar parte de ti y la usas como si sintieras con su extremo. Tu familia o amigos forman parte de ti (¿qué prefieres perder: un brazo o un ser querido?). Tus niveles de testosterona varían si tu equipo pierde o gana.</li>
+<li>Cuando usas una herramienta, no hace falta que la entiendas: solo te hace falta saber con precisión qué quieres hacer con ella.</li>
+<li>Somos más conscientes de nuestras limitaciones cuando algo que siempre usamos deja de funcionar y no lo sabemos arreglar, como un coche u ordenador. Simplificamos el mundo en el día a día.</li>
+<li>El mundo es fácil mientras es simple, y eso solo ocurre cuando ignoramos cómo funciona. Ante una catástrofe, un desastre, o un simple desajuste, nos damos cuenta de que nuestra percepción era equivocada.</li>
+<li>Si no hay una tradición consesuada de quién hace qué, se acaba en tres escenarios. La esclavitud, en la que el esclavo se acaba revelando y llega el caos; la tiranía, en la que el tirano se aburre por exceso de obediencia y abandona al subordinado a su propia suerte; o la negociación. Esta exige que ambos jugadores hablen con franqueza y admitan que hay un problema.</li>
+<li>vivir significa realizar una labor constante de mantenimiento</li>
+<li>las relaciones pueden acabarse por problemas que nunca nos atrevemos a solucionar ni siquiera plantear.</li>
+<li>Nos negamos a ser específicos con un problema porque el serlo signfica admitir su existencia.</li>
+<li>si no eres específico, no solo no defines el triunfo, sino que tampoco defines tu fracaso. Pero eso en sí mismo está abocado al fracaso.</li>
+</ul>
+</section>
+<section id="deja-en-paz-a-los-chavales-que-montan-en-monopatín" class="level2">
+<h2 class="anchored" data-anchor-id="deja-en-paz-a-los-chavales-que-montan-en-monopatín">11. Deja en paz a los chavales que montan en monopatín</h2>
+<ul>
+<li>Los que patinan no se ponen protección porque no buscan la falsa seguridad de un equipo protector, sino la seguridad mediante la competencia.</li>
+<li>Según Orwell, el socialismo en reino unido estaba representado políticamente por unas personas que no defendían a la clase obrera, sino que odiaban a los ricos.</li>
+<li>Los chicos actualmente tienden a ser etiquetados de peores estudiantes que las chicas y menos simpáticos y más desobedientes. Pero también más independientes y menos susceptibles a la depresión. Los intereses de los chicos tienden a relacionarse con cosas, y los de las chicas con personas.</li>
+<li>Estas diferencias están influidas por razones biológicos.</li>
+<li>Políticas igualitarias como intentar que dos personas con el mismo trabajo cobren igual tienen la dificultad de decidir qué significa que dos trabajos sean iguales.</li>
+<li>hay políticas que buscan que se eduque igual a los chicos que a las chicas, con la idea de que sean menos violentos. Pero la violencia a veces es innata. Y además hay mujeres que el psicólogo les recomienda ser más violentas, porque un exceso de simpatía hace que te seas demasiado servicial y te afecta en la autoestima.</li>
+</ul>
 
-data:  heads and flips
-number of successes = 60, number of trials = 100, p-value = 0.02844
-alternative hypothesis: true probability of success is greater than 0.5
-95 percent confidence interval:
- 0.5129758 1.0000000
-sample estimates:
-probability of success 
-                   0.6 </code></pre>
-</div>
-</div>
-</section>
-<section id="qué-hay-mal-aquí" class="level2">
-<h2 class="anchored" data-anchor-id="qué-hay-mal-aquí">¿Qué hay mal aquí?</h2>
-<p>Lo malo de esto es que ese planteamiento te da la probabilidad de tus datos, en el supuesto de que la moneda no esté trucada (muy baja, por cierto).</p>
-<p>Pero es que tú no quieres eso.</p>
-<p>Tú ya lanzaste la moneda 100 veces, y salió cara 60. No quieres la probabilidad de que eso ocurra… ¡porque eso ya ha ocurrido!</p>
-<p>Lo que quieres saber es si es probable o no que la moneda esté trucada.</p>
-<p>Si no lo está, la probabilidad de obtener cara es 0,5.</p>
-<p>Ahora bien, dado que has obtenido cara 60 veces de 100, ¿cuál es probabilidad real de obtener cara en esa moneda?</p>
-</section>
-<section id="el-modo-bayesiano" class="level2">
-<h2 class="anchored" data-anchor-id="el-modo-bayesiano">El modo bayesiano</h2>
-<section id="priori" class="level3">
-<h3 class="anchored" data-anchor-id="priori">Priori</h3>
-<p>Supón que no tienes ni idea de si la moneda está trucada o no. O sea, la probabilida de obtener cara va entre 0 y 1.</p>
-<p>Sí, normalmente es 0,5, pero como ahora no sabes nada de la moneda, vas a suponer que puedes obtener cara siempre, o nunca, o pocas veces, o muchas… pues eso, cualquier número entre 0 y 1.</p>
-<p>El siguiente gráfico es una aproximación a cómo expresamos eso visualmente. La idea es que la probabilidad de obtener cara sigue una distribución uniforme entre 0 y 1.</p>
-<p>Eso es tu <strong>información a priori</strong>: no tienes ni idea.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/priori-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="modelo-generativo" class="level3">
-<h3 class="anchored" data-anchor-id="modelo-generativo">Modelo generativo</h3>
-<p>Ahora vas a simular varias situaciones de lanzamientos de la moneda 100 veces. Pero en cada experimento, la probabilidad de obtener cara varía, según la distribución uniforme que has asumido antes.</p>
-<p>Esta es la distribución del número de caras que obtienes en este caso:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/gen-mod-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Visto así, parece poca cosa, pero ya tienes la información suficiente para tener mejor idea de la probabilidad de obtener cara.</p>
-</section>
-<section id="posteriori" class="level3">
-<h3 class="anchored" data-anchor-id="posteriori">Posteriori</h3>
-<p>Primero, construyes una tabla en la que tienes el número de caras obtenido en función de la probabilidad de obtener cara.</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>    p_priori number_of_heads
-1 0.06774352               7
-2 0.92790215              94
-3 0.27373604              24
-4 0.68878886              75
-5 0.54839729              43
-6 0.92304212              86</code></pre>
-</div>
-</div>
-<p>En esa tabla podemos quedarnos solo con los casos en los que obtienes 60 caras. Y en esos casos observas la probabilidad de obtener cara.</p>
-<p>Esa probabilidad sigue esta distribución:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/posteriori1-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Si prefieres números:</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.4705  0.5513  0.5789  0.5862  0.6173  0.6845 </code></pre>
-</div>
-</div>
-<p>Esos números ya no siguen la distribución uniforme a priori de antes, en la que indicabas que no sabías nada de la moneda.</p>
-<p>Ahora ya sabes entre qué números puede variar esa probabilidad.</p>
-</section>
-<section id="datos" class="level3">
-<h3 class="anchored" data-anchor-id="datos">Datos</h3>
-<p>Esos valores a posteriori los hemos calculado porque en tu experimento inicial conseguiste 60 caras.</p>
-<p>Pero si tus datos fueran otros, tu modelo generativo te permite obtener el posteriori de nuevo.</p>
-<p>Solo tienes que moverte entre los resultados.</p>
-<p>Aquí tienes, visualmente, en qué consiste la creación de los posteriori, dados los datos:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/marginal-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
 
-
-</section>
 </section>
 
 </main> <!-- /main -->
