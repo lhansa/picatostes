@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Leonardo Hansa">
-<meta name="description" content="Experimentos estadísticos frecuentistas y bayesianos en lanzamiento de monedas.">
+<meta name="description" content="Tidytueday - Centenarians">
 
-<title>Longitud sin anchura - Cara o cruz, modo Bayes (I)</title>
+<title>Longitud sin anchura - Personas centenarias [tidytuesday]</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -145,10 +111,10 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Cara o cruz, modo Bayes (I)</h1>
+      <h1 class="title">Personas centenarias [tidytuesday]</h1>
                   <div>
         <div class="description">
-          Experimentos estadísticos frecuentistas y bayesianos en lanzamiento de monedas.
+          Exploración de datos de personas centenarias, con datos del tidytuesday de 2023-05-30
         </div>
       </div>
                           <div class="quarto-categories">
@@ -170,7 +136,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">24 de junio de 2023</p>
+        <p class="date">21 de julio de 2023</p>
       </div>
     </div>
     
@@ -188,121 +154,46 @@ cookieconsent.run({
 
 
 
-<p>Tienes una moneda, aparentemente no trucada, y la lanzas <strong>100 veces.</strong></p>
-<p>Esperarías que 50 veces saliera cara, ¿no? Más o menos.</p>
-<p>Pues sale <strong>60 veces.</strong></p>
-<p>¿Sigues pensando que no está trucada?</p>
-<section id="el-modo-frecuentista" class="level2">
-<h2 class="anchored" data-anchor-id="el-modo-frecuentista">El modo frecuentista</h2>
-<p>Puedes plantear el problema así:</p>
-<ul>
-<li>Realizas el experimento 10.000 veces.</li>
-<li>O sea, lanzas la moneda 100 veces y cuentas, las caras; lo haces otra vez; y otra… y así 10.000 veces.</li>
-</ul>
-<p>¿Cuántas de esas veces has obtenido por lo menos 60 caras?</p>
-<p>Las que marco en el gráfico:</p>
+<p>Exploración de datos del <a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-05-30/readme.md">tidytuesday del 30 de mayo de 2023.</a></p>
+<p>Sitúo por año de nacimiento a los centenarios. Habrá en los años más recientes, seguramente porque la población era mayor (en un periodo tan breve, no creo que los avances médicos supusieran tanta diferencia).</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/frequentist-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/per-year-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Esa área es el p-valor de este test:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(heads, flips, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Exact binomial test
-
-data:  heads and flips
-number of successes = 60, number of trials = 100, p-value = 0.02844
-alternative hypothesis: true probability of success is greater than 0.5
-95 percent confidence interval:
- 0.5129758 1.0000000
-sample estimates:
-probability of success 
-                   0.6 </code></pre>
-</div>
-</div>
-</section>
-<section id="qué-hay-mal-aquí" class="level2">
-<h2 class="anchored" data-anchor-id="qué-hay-mal-aquí">¿Qué hay mal aquí?</h2>
-<p>Lo malo de esto es que ese planteamiento te da la probabilidad de tus datos, en el supuesto de que la moneda no esté trucada (muy baja, por cierto).</p>
-<p>Pero es que tú no quieres eso.</p>
-<p>Tú ya lanzaste la moneda 100 veces, y salió cara 60. No quieres la probabilidad de que eso ocurra… ¡porque eso ya ha ocurrido!</p>
-<p>Lo que quieres saber es si es probable o no que la moneda esté trucada.</p>
-<p>Si no lo está, la probabilidad de obtener cara es 0,5.</p>
-<p>Ahora bien, dado que has obtenido cara 60 veces de 100, ¿cuál es probabilidad real de obtener cara en esa moneda?</p>
-</section>
-<section id="el-modo-bayesiano" class="level2">
-<h2 class="anchored" data-anchor-id="el-modo-bayesiano">El modo bayesiano</h2>
-<section id="priori" class="level3">
-<h3 class="anchored" data-anchor-id="priori">Priori</h3>
-<p>Supón que no tienes ni idea de si la moneda está trucada o no. O sea, la probabilida de obtener cara va entre 0 y 1.</p>
-<p>Sí, normalmente es 0,5, pero como ahora no sabes nada de la moneda, vas a suponer que puedes obtener cara siempre, o nunca, o pocas veces, o muchas… pues eso, cualquier número entre 0 y 1.</p>
-<p>El siguiente gráfico es una aproximación a cómo expresamos eso visualmente. La idea es que la probabilidad de obtener cara sigue una distribución uniforme entre 0 y 1.</p>
-<p>Eso es tu <strong>información a priori</strong>: no tienes ni idea.</p>
+<section id="cómo-varía-en-función-de-las-variables-que-hay" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-varía-en-función-de-las-variables-que-hay">¿Cómo varía en función de las variables que hay?</h2>
+<p>No tengo a mano los datos de población de los países pero me vale esto para hacerme una idea.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/priori-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/per-country-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="modelo-generativo" class="level3">
-<h3 class="anchored" data-anchor-id="modelo-generativo">Modelo generativo</h3>
-<p>Ahora vas a simular varias situaciones de lanzamientos de la moneda 100 veces. Pero en cada experimento, la probabilidad de obtener cara varía, según la distribución uniforme que has asumido antes.</p>
-<p>Esta es la distribución del número de caras que obtienes en este caso:</p>
+<p>No hay diferencia entre chico/chica:</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/gen-mod-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Visto así, parece poca cosa, pero ya tienes la información suficiente para tener mejor idea de la probabilidad de obtener cara.</p>
-</section>
-<section id="posteriori" class="level3">
-<h3 class="anchored" data-anchor-id="posteriori">Posteriori</h3>
-<p>Primero, construyes una tabla en la que tienes el número de caras obtenido en función de la probabilidad de obtener cara.</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>    p_priori number_of_heads
-1 0.13062305               9
-2 0.60850103              64
-3 0.39369935              38
-4 0.60221118              54
-5 0.92457859              93
-6 0.03955949               3</code></pre>
-</div>
-</div>
-<p>En esa tabla podemos quedarnos solo con los casos en los que obtienes 60 caras. Y en esos casos observas la probabilidad de obtener cara.</p>
-<p>Esa probabilidad sigue esta distribución:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/posteriori1-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>Si prefieres números:</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
- 0.4877  0.5715  0.6081  0.6055  0.6368  0.7400 </code></pre>
-</div>
-</div>
-<p>Esos números ya no siguen la distribución uniforme a priori de antes, en la que indicabas que no sabías nada de la moneda.</p>
-<p>Ahora ya sabes entre qué números puede variar esa probabilidad.</p>
-</section>
-<section id="datos" class="level3">
-<h3 class="anchored" data-anchor-id="datos">Datos</h3>
-<p>Esos valores a posteriori los hemos calculado porque en tu experimento inicial conseguiste 60 caras.</p>
-<p>Pero si tus datos fueran otros, tu modelo generativo te permite obtener el posteriori de nuevo.</p>
-<p>Solo tienes que moverte entre los resultados.</p>
-<p>Aquí tienes, visualmente, en qué consiste la creación de los posteriori, dados los datos:</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/marginal-1.png" class="img-fluid" width="672"></p>
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Género</th>
+<th style="text-align: right;">Personas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">female</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">male</td>
+<td style="text-align: right;">100</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
