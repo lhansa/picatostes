@@ -476,6 +476,13 @@
     "text": "Simulación de la distribución muestral\nEn el curso de Datacamp de donde estoy sacando estas ideas dicen que, si tiras 100 dados, tienes tantas combinaciones posibles como átomos hay en el universo: 6.5331862^{77}\nCuando no puedes replicar la distribución exacta porque el número de casos es enorme, o porque no tienes acceso a toda la población (bien por tecnología, bien por coste, …), necesitas una aproximación a esa distribución.\nPor ejemplo, si en el caso de 4 dados no pudiéramos replicar todos los lanzamientos, podríamos buscar una aproximación mediante algunos lanzamientos. En el gráfico anterior están los 1296 casos posibles. Vamos a ver cómo queda esa distribución si lo aproximamos con 750 simulaciones.\n\n\n\n\n\nNo es igual pero la forma es parecida. Una nota importante: en este caso estamos simulando, o sea, no estamos tomando los resultados posibles reales, sino que estamos haciendo como que tiramos los dados y apuntamos la suma. Es decir, como no es el caso teórico, incluso aunque repitiéramos la simulación tantas veces como casos posibles hay, nada garantiza que vayamos a obtener la distribución exacta de antes.\n\n\n\n\n\n\nY esto, ¿para qué sirve?\nOye, Leo, pero yo ya he calculado la distribución exacta. ¿Para qué quiero esta aproximación?\nComo esa aproximación se parece a la distribución exacta, cuando no puedes acceder a la exacta, puedes usar esta:"
   },
   {
+    "objectID": "posts/2023-07-21-muestreo-ii/index.html#teorema-central-del-límite",
+    "href": "posts/2023-07-21-muestreo-ii/index.html#teorema-central-del-límite",
+    "title": "Muestreo (II)",
+    "section": "Teorema central del límite",
+    "text": "Teorema central del límite\nImagina que fijas un tamaño muestral. Y para ese tamaño muestral, replicas muchas veces un experimento.\nEl experimento va a consistir en calcular la media de la profundidad de unos diamantes.\nLa media de toda la muestra es 61.7494049.\nEn el siguiente gráfico tienes la distribución de la media muestral cuando el tamaño muestral es 5, 100, 500 y 1.000 (el total de la muestra es superior a 50.000).\n\n\n\n\n\nLo interesante de este gráfico es que puedes ver cómo, a medida que aumenta el tamaño muestral, los cálculos de la media con ese tamaño son cada vez más estables. La línea vertical es la media poblacional y puedes ver que las colas son cada vez menos pesadas (más normales)."
+  },
+  {
     "objectID": "posts/2021-12-26-burbuja-tur-stica/index.html",
     "href": "posts/2021-12-26-burbuja-tur-stica/index.html",
     "title": "Burbuja turística",
