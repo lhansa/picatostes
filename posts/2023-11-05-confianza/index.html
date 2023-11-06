@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Leonardo Hansa">
-<meta name="description" content="Evolución de la población española por edades desde 1971, con R y ggplot2.">
+<meta name="description" content="Cómo calcular e interpretar intervalos de confianza.">
 
-<title>Longitud sin anchura - Pirámide de población española, desde 1971</title>
+<title>Longitud sin anchura - Qué te dice un intervalo de confianza</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -111,10 +111,10 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Pirámide de población española, desde 1971</h1>
+      <h1 class="title">Qué te dice un intervalo de confianza</h1>
                   <div>
         <div class="description">
-          Evolución de la población española por edades desde 1971, con R y ggplot2.
+          Cómo calcular e interpretar intervalos de confianza
         </div>
       </div>
                           <div class="quarto-categories">
@@ -136,7 +136,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">20 de octubre de 2023</p>
+        <p class="date">5 de noviembre de 2023</p>
       </div>
     </div>
     
@@ -154,27 +154,129 @@ cookieconsent.run({
 
 
 
-<p>Te traigo una película de terror, llamada <em>La quiebra de las pensiones en España</em>.</p>
-<p>Es un GIF que he hecho con la librería ggplot2 de R, y gganimate.</p>
-<p>Si quieres el código, me lo pides y te lo mando (o lo buscas en mi GitHub).</p>
-<p>Los datos vienen del INE.</p>
-<p>En el gráfico aparecen unos valores missing en un momento dado, pero ni idea de por qué, porque dato hay.</p>
+<section id="cálculo-del-intervalo" class="level2">
+<h2 class="anchored" data-anchor-id="cálculo-del-intervalo">Cálculo del intervalo</h2>
+<p>La media muestral es 1007.718297 y la desviación típica muestral es 103.8000743.</p>
+<p>También conocemos el tamaño muestral (porque lo he decidido yo antes) y necesitamos los valores de la distribución normal que delimitan la confianza al nivel que queramos (95% para no salir de lo habitual).</p>
+<p>El resultado es que el intervalo es (987.3738563, 1028.0627378).</p>
+</section>
+<section id="interpretación-del-intervalo" class="level2">
+<h2 class="anchored" data-anchor-id="interpretación-del-intervalo">Interpretación del intervalo</h2>
+<p>¿Cómo interpretas esos valores? La interpretación <strong>no</strong> es que el valor de la media poblacional está ahí dentro con un 95% de probabilidad.</p>
+<p>Vamos a ver qué es.</p>
+<p>En lugar de dar la definición formal de intervalo de confianza, que no hay dios que la entienda, vamos a construir muchos intervalos de confianza.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] ""</code></pre>
+<pre><code>List of 20000
+ $ : num 1000
+ $ : num [1:2] 980 1019
+ $ : num 1013
+ $ : num [1:2] 994 1032
+ $ : num 995
+ $ : num [1:2] 976 1015
+ $ : num 1011
+ $ : num [1:2] 991 1031
+ $ : num 1003
+ $ : num [1:2] 985 1022
+ $ : num 1013
+ $ : num [1:2] 996 1030
+ $ : num 1001
+ $ : num [1:2] 983 1018
+ $ : num 986
+ $ : num [1:2] 966 1006
+ $ : num 1000
+ $ : num [1:2] 977 1023
+ $ : num 1005
+ $ : num [1:2] 985 1026
+ $ : num 1010
+ $ : num [1:2] 989 1030
+ $ : num 1020
+ $ : num [1:2] 1000 1040
+ $ : num 992
+ $ : num [1:2] 972 1012
+ $ : num 990
+ $ : num [1:2] 970 1010
+ $ : num 978
+ $ : num [1:2] 957 998
+ $ : num 993
+ $ : num [1:2] 974 1011
+ $ : num 998
+ $ : num [1:2] 978 1019
+ $ : num 1015
+ $ : num [1:2] 995 1036
+ $ : num 993
+ $ : num [1:2] 971 1014
+ $ : num 990
+ $ : num [1:2] 971 1010
+ $ : num 1001
+ $ : num [1:2] 983 1020
+ $ : num 986
+ $ : num [1:2] 967 1005
+ $ : num 997
+ $ : num [1:2] 979 1015
+ $ : num 995
+ $ : num [1:2] 974 1016
+ $ : num 1004
+ $ : num [1:2] 985 1024
+ $ : num 1004
+ $ : num [1:2] 984 1023
+ $ : num 992
+ $ : num [1:2] 972 1011
+ $ : num 988
+ $ : num [1:2] 968 1007
+ $ : num 983
+ $ : num [1:2] 964 1001
+ $ : num 1001
+ $ : num [1:2] 984 1018
+ $ : num 995
+ $ : num [1:2] 976 1013
+ $ : num 1007
+ $ : num [1:2] 988 1026
+ $ : num 1013
+ $ : num [1:2] 995 1032
+ $ : num 1005
+ $ : num [1:2] 984 1025
+ $ : num 1007
+ $ : num [1:2] 986 1028
+ $ : num 1013
+ $ : num [1:2] 993 1033
+ $ : num 1001
+ $ : num [1:2] 980 1022
+ $ : num 1019
+ $ : num [1:2] 999 1039
+ $ : num 990
+ $ : num [1:2] 970 1010
+ $ : num 1002
+ $ : num [1:2] 981 1022
+ $ : num 994
+ $ : num [1:2] 975 1012
+ $ : num 984
+ $ : num [1:2] 964 1003
+ $ : num 969
+ $ : num [1:2] 950 989
+ $ : num 1018
+ $ : num [1:2] 998 1037
+ $ : num 1016
+ $ : num [1:2] 999 1034
+ $ : num 999
+ $ : num [1:2] 980 1019
+ $ : num 988
+ $ : num [1:2] 968 1009
+ $ : num 1019
+ $ : num [1:2] 998 1041
+ $ : num 1012
+ $ : num [1:2] 990 1035
+ $ : num 1009
+  [list output truncated]
+ - attr(*, "dim")= int [1:2] 2 10000
+ - attr(*, "dimnames")=List of 2
+  ..$ : chr [1:2] "mean" "confint"
+  ..$ : NULL</code></pre>
 </div>
-</div>
-<p><img src="piramide-poblacion.gif" class="img-fluid"></p>
-<p>Puede serte más práctico tener todos los gráficos seguidos, en lugar de quedarte mirando un GIF.</p>
-<p>Aquí los tienes:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="facets.jpeg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Pirámides de población desde 1971 hasta 2021</figcaption>
-</figure>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
