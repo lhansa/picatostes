@@ -9,7 +9,7 @@
 <meta name="author" content="Leonardo Hansa">
 <meta name="description" content="Cómo calcular e interpretar intervalos de confianza.">
 
-<title>Longitud sin anchura - Qué te dice un intervalo de confianza</title>
+<title>Longitud sin anchura - Cómo interpretas un intervalo de confianza</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -114,6 +114,8 @@ cookieconsent.run({
 </script> 
   
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -145,7 +147,7 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Qué te dice un intervalo de confianza</h1>
+      <h1 class="title">Cómo interpretas un intervalo de confianza</h1>
                   <div>
         <div class="description">
           Cómo calcular e interpretar intervalos de confianza
@@ -218,128 +220,76 @@ cookieconsent.run({
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>norm_values <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, population_mean, population_sd)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(norm_values)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sample_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(norm_values)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(norm_values)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>La media muestral es 1007.718297 y la desviación típica muestral es 103.8000743.</p>
+<p>La media muestral es 1007.718297.</p>
 <p>El objetivo de estos párrafos es calcular el intervalo de confianza para esa estimación, o sea, a la hora de usar la media muestral como estimación de la media poblacional.</p>
-<p>Para ello necesitamos la media y desviación típica (las tenemos), el tamaño muestral (me lo he inventado yo, 100).</p>
+<p>Para ello necesitamos la media y <strong>desviación típica poblacional</strong>[^1] (las tenemos), el tamaño muestral (me lo he inventado yo, 100).</p>
+<p>[^1 Si no tienes la poblacional y usas una muestral necesitas hacer un ajuste en lo que voy a contar hoy. Te lo cuento otro día.]</p>
 <p>Y necesitamos también los valores de la distribución normal que delimitan la confianza al nivel que queramos (95% para no salir de lo habitual). En R lo puedes calcular con <code>qnorm(0.975)</code> y <code>qnorm(0.025)</code>.</p>
-<p>La fórmula es…</p>
-<p>El resultado es que el intervalo es (987.3738563, 1028.0627378).</p>
+<p>El intervalo estará centrado en tu media muestral. Las cotas vendrán dadas por un margen de error.</p>
+<p>Este margen de error se calcula con:</p>
+<ul>
+<li>La desviación típica <strong>poblacional.</strong></li>
+<li>La raíz cuadrada del tamaño muestral.</li>
+<li>Un valor que ahora te explico.</li>
+</ul>
+<p>La desviación típica de la muestra dividida por la raíz cuadrada del tamaño muestral no es un valor cualquiera. Es <strong>la desviación típica de la media muestral.</strong></p>
+<p>O sea, tienes una población, y tomas una muestra; con esa muestra te calculas la media y te la guardas. Ahora tomas otra muestra, vuelves a calcular la media y te la guardas. Y así muchas veces. Todas estas medias no serán iguales entre sí: serán parecidas, y deberían estar cerca de la media poblacional, pero varían. Varían con una desviación típica. ¿Cuál? Ese valor que hemos dicho.</p>
+<p>Mira.</p>
+<p>Voy a calcular 1000 medias muestrales de diferentes muestras de tamaño 100 y calculo su desviación típica.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>muchas_medias <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(<span class="fu">rnorm</span>(sample_size, population_mean, population_sd))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(muchas_medias)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.00571</code></pre>
+</div>
+</div>
+<p>Y ahora lo comparo con la división de la desviación típica de la población entre la raíz cuadrada del tamaño muestral: 10. ¿A que se parecen bastante?</p>
+<p>Pero el margen de error no depende solo de eso, sino que falta el numerito extra. O sea, tiene sentido que el margen de error dependa de la desviación típica de lo que estás estimando, pero falta lo de la <em>confianza</em>. Si quieres mucha confianza, tendrás que aumentar de alguna forma el margen de error; y si quieres menos confianza, tendrás que reducirlo.</p>
+<p>Para eso necesitas el estadístico <span class="math inline">\(z\)</span>. Nos interesa el intervalo de confianza al 95%, ¿no? Pues este valor <span class="math inline">\(z\)</span> lo puedes ver como el valor de la distribución normal <span class="math inline">\(\mathcal{N}(0, 1)\)</span> que deja a su izquierda el 95% de la probabilidad. O sea, los números mayores que él, solo aparecerán en una distribución normal con un 5% de probabilidad.</p>
+<p>Al multiplicar este valor por la desviación típica de la media muestral, lo que estás haciendo es llevar el margen de error a la escala de tu población (y no dejarla en la de una normal 0-1).</p>
+<p>Pues ahora ya está todo.</p>
+<p>Si eres alguien anclado en el siglo XX, buscarás el valor de <span class="math inline">\(z\)</span> en una tabla. Si vives en el presente, usarás algún software que te lo busque.</p>
+<p>En R puedes usar la función <code>qnorm()</code>.</p>
+<p>Quieres el 95% de probabilidad, pero ten en cuenta que la distribución normal es simétrica. Así que necesitas el extremo que deje el 2.5% a su derecha y el que deje el 2.5% a su izquierda. Lo puedes hacer con <code>qnorm(c(0.025, 0.975))</code>.</p>
+<p>El resultado es que el intervalo es (988.1186572, 1027.3179369).</p>
+<p>Si tienes en cuenta que la media poblacional era 1000, no es una estimación horrible.</p>
+<p>Pero…</p>
 </section>
 <section id="interpretación-del-intervalo" class="level2">
 <h2 class="anchored" data-anchor-id="interpretación-del-intervalo">Interpretación del intervalo</h2>
 <p>¿Cómo interpretas esos valores? La interpretación <strong>no</strong> es que el valor de la media poblacional está ahí dentro con un 95% de probabilidad.</p>
-<p>Vamos a ver qué es.</p>
+<p>La media poblacional es un dato, es una realidad. No sabemos si está dentro o no, pero no hay una probabilidad para indicar dónde está.</p>
+<p>Vamos a ver cómo se interpreta.</p>
 <p>En lugar de dar la definición formal de intervalo de confianza, que no hay dios que la entienda, vamos a construir muchos intervalos de confianza.</p>
+<p>Construyo 10^{4} intervalos de confianza, cada uno a partir de una muestra diferente, pero todas provenientes de la misma población.</p>
+<p>Cada muestra tendrá una media, que aprovecho y calculo también.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 20000
- $ : num 1000
- $ : num [1:2] 980 1019
- $ : num 1013
- $ : num [1:2] 994 1032
- $ : num 995
- $ : num [1:2] 976 1015
- $ : num 1011
- $ : num [1:2] 991 1031
- $ : num 1003
- $ : num [1:2] 985 1022
- $ : num 1013
- $ : num [1:2] 996 1030
- $ : num 1001
- $ : num [1:2] 983 1018
- $ : num 986
- $ : num [1:2] 966 1006
- $ : num 1000
- $ : num [1:2] 977 1023
- $ : num 1005
- $ : num [1:2] 985 1026
- $ : num 1010
- $ : num [1:2] 989 1030
- $ : num 1020
- $ : num [1:2] 1000 1040
- $ : num 992
- $ : num [1:2] 972 1012
- $ : num 990
- $ : num [1:2] 970 1010
- $ : num 978
- $ : num [1:2] 957 998
- $ : num 993
- $ : num [1:2] 974 1011
- $ : num 998
- $ : num [1:2] 978 1019
- $ : num 1015
- $ : num [1:2] 995 1036
- $ : num 993
- $ : num [1:2] 971 1014
- $ : num 990
- $ : num [1:2] 971 1010
- $ : num 1001
- $ : num [1:2] 983 1020
- $ : num 986
- $ : num [1:2] 967 1005
- $ : num 997
- $ : num [1:2] 979 1015
- $ : num 995
- $ : num [1:2] 974 1016
- $ : num 1004
- $ : num [1:2] 985 1024
- $ : num 1004
- $ : num [1:2] 984 1023
- $ : num 992
- $ : num [1:2] 972 1011
- $ : num 988
- $ : num [1:2] 968 1007
- $ : num 983
- $ : num [1:2] 964 1001
- $ : num 1001
- $ : num [1:2] 984 1018
- $ : num 995
- $ : num [1:2] 976 1013
- $ : num 1007
- $ : num [1:2] 988 1026
- $ : num 1013
- $ : num [1:2] 995 1032
- $ : num 1005
- $ : num [1:2] 984 1025
- $ : num 1007
- $ : num [1:2] 986 1028
- $ : num 1013
- $ : num [1:2] 993 1033
- $ : num 1001
- $ : num [1:2] 980 1022
- $ : num 1019
- $ : num [1:2] 999 1039
- $ : num 990
- $ : num [1:2] 970 1010
- $ : num 1002
- $ : num [1:2] 981 1022
- $ : num 994
- $ : num [1:2] 975 1012
- $ : num 984
- $ : num [1:2] 964 1003
- $ : num 969
- $ : num [1:2] 950 989
- $ : num 1018
- $ : num [1:2] 998 1037
- $ : num 1016
- $ : num [1:2] 999 1034
- $ : num 999
- $ : num [1:2] 980 1019
- $ : num 988
- $ : num [1:2] 968 1009
- $ : num 1019
- $ : num [1:2] 998 1041
- $ : num 1012
- $ : num [1:2] 990 1035
- $ : num 1009
-  [list output truncated]
- - attr(*, "dim")= int [1:2] 2 10000
- - attr(*, "dimnames")=List of 2
-  ..$ : chr [1:2] "mean" "confint"
-  ..$ : NULL</code></pre>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>experiments <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">seq_len</span>(computations), <span class="cf">function</span>(i) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compute_interval</span>(sample_size, population_mean, population_sd) </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Fíjate en el siguiente gráfico. Ha habido muestras cuya media muestral ha sido cercana a 960 ó a 1040. Y esas muestras tendrán sus intervalos de confianza centrados en ese valor… tiene pinta de que van a estar lejos de la media poblacional.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/sample-mean-distribution-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>De esos experimentos que hemos hecho, podemos extraer también los intervalos de confianza. Voy a intentar pintártelos para que veas dónde han caído.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/plot-confints-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Toda esa banda morada son los 10^{4} intervalos de confianza calculados. La línea amarilla realmente es una sucesión de puntos (como todas las líneas) con cada media muestral.</p>
+<p>La línea negra es la media poblacional. Y fíjate…</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 
