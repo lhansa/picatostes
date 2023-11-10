@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -154,10 +188,44 @@ cookieconsent.run({
 
 
 
+<p>Creo que no entendí qué eran los intervalos de confianza en ninguna clase de estadística.</p>
+<p>A ver, no digo que no me los explicaran.</p>
+<p>Digo que, pese a que me los explicaron, no entendí nada de ellos.</p>
+<p>En el mundo laboral me encuentro con dos situaciones contradictorias:</p>
+<ul>
+<li>Hay personas que defienden que todas las estimaciones que se dan deberían incluir los intervalos de confianza.</li>
+<li>Pero hay personas, normalmente los consumidores o clientes de esas estimaciones, que no tienen ni idea de qué es un intervalo de confianza.</li>
+</ul>
+<p>Y no digo que sea culpa suya.</p>
+<p>La verdad, con lo complicado que es el concepto (porque no tiene ni pies ni cabeza) y lo mal que lo dan, normal que no se enteren.</p>
+<p>¿Se deberían dar los intervalos de confianza? Pues dado que algo de la incertidumbre de tus estimaciones deberías dar, mientras no tengas nada mejor, sí, deberías darlos.</p>
+<p>Te muestro aquí un ejemplo de <strong>cómo se interpretan.</strong></p>
 <section id="cálculo-del-intervalo" class="level2">
 <h2 class="anchored" data-anchor-id="cálculo-del-intervalo">Cálculo del intervalo</h2>
+<p>Voy a usar un ejemplo muy concreto.</p>
+<p>¿Significa eso que lo que te voy a explicar solo sirve para este ejemplo?</p>
+<p>No, es extrapolable. Pero necesito un ejemplo concreto porque si no, pasa lo de siempre: que nadie se entera de nada.</p>
+<p>El ejemplo es <strong>estimar la media de una población a partir de la media de una muestra.</strong> Parece una bobada, lo sé, pero verás en breve que hay cierta incertidumbre al usar la media muestral para esto.</p>
+<p>Con esto no digo que no uses la media muestral. Lo que digo es que seas consciente de que hay cierta incertidumbre.</p>
+<p>Para jugar con esta incertidumbre, voy a recrear un ejemplo del que conozco la media poblacional, y veremos qué tal se comporta la media muestra.</p>
+<p>Uso una población de distribución <strong>normal de media 1000 y desviación típica 100</strong>. ¿Lo puedes hacer con otros números? Sí, claro. Ya te he dicho que esto es extrapolable a cualquier cosa de estimación.</p>
+<p>Voy a tomar una muestra de tamaño 100 de esta población. Y calculo la media y desviación típica.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3718</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>population_mean <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>population_sd <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>norm_values <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(sample_size, population_mean, population_sd)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sample_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(norm_values)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sample_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(norm_values)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>La media muestral es 1007.718297 y la desviación típica muestral es 103.8000743.</p>
-<p>También conocemos el tamaño muestral (porque lo he decidido yo antes) y necesitamos los valores de la distribución normal que delimitan la confianza al nivel que queramos (95% para no salir de lo habitual).</p>
+<p>El objetivo de estos párrafos es calcular el intervalo de confianza para esa estimación, o sea, a la hora de usar la media muestral como estimación de la media poblacional.</p>
+<p>Para ello necesitamos la media y desviación típica (las tenemos), el tamaño muestral (me lo he inventado yo, 100).</p>
+<p>Y necesitamos también los valores de la distribución normal que delimitan la confianza al nivel que queramos (95% para no salir de lo habitual). En R lo puedes calcular con <code>qnorm(0.975)</code> y <code>qnorm(0.025)</code>.</p>
+<p>La fórmula es…</p>
 <p>El resultado es que el intervalo es (987.3738563, 1028.0627378).</p>
 </section>
 <section id="interpretación-del-intervalo" class="level2">
