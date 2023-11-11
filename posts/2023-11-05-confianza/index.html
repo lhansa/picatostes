@@ -172,7 +172,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">5 de noviembre de 2023</p>
+        <p class="date">11 de noviembre de 2023</p>
       </div>
     </div>
     
@@ -269,9 +269,10 @@ cookieconsent.run({
 <p>Construyo 10^{4} intervalos de confianza, cada uno a partir de una muestra diferente, pero todas provenientes de la misma población.</p>
 <p>Cada muestra tendrá una media, que aprovecho y calculo también.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>experiments <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">seq_len</span>(computations), <span class="cf">function</span>(i) {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compute_interval</span>(sample_size, population_mean, population_sd) </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>experiments <span class="ot">&lt;-</span> <span class="fu">map</span>(<span class="fu">seq_len</span>(computations), <span class="cf">function</span>(i) {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compute_interval</span>(sample_size, population_mean, population_sd) </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Fíjate en el siguiente gráfico. Ha habido muestras cuya media muestral ha sido cercana a 960 ó a 1040. Y esas muestras tendrán sus intervalos de confianza centrados en ese valor… tiene pinta de que van a estar lejos de la media poblacional.</p>
 <div class="cell">
@@ -279,21 +280,53 @@ cookieconsent.run({
 <p><img src="index_files/figure-html/sample-mean-distribution-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>De esos experimentos que hemos hecho, podemos extraer también los intervalos de confianza. Voy a intentar pintártelos para que veas dónde han caído.</p>
+<p>De esos experimentos que hemos hecho, podemos extraer también los intervalos de confianza. Voy a pintártelos para que veas dónde han caído.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/plot-confints-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Toda esa banda morada son los 10^{4} intervalos de confianza calculados. La línea amarilla realmente es una sucesión de puntos (como todas las líneas) con cada media muestral.</p>
-<p>La línea negra es la media poblacional. Y fíjate…</p>
+<p>La línea negra es la media poblacional. Y fíjate en que hay unos pocos intervalos (los de más abajo y los de más arriba, los extremos) que no tocan esa línea negra. O sea, <strong>hay intervalos que no contienen a la media poblacional.</strong></p>
+<p>Esto es muy fuerte.</p>
+<p>Al principio he tomado una muestra, he calculado la media muestral como estimación de la poblacional, y en torno a ella he construido un intervalo de confianza.</p>
+<p>Ese intervalo era un posible intervalo de confianza al 95% por ciento. Y en ese caso sí contenía a la media poblacional (cosa que sé porque estoy en un experimento controlado, pero lo normal es que no sepas la media poblacional).</p>
+<p><strong>Pero si me hubiera salido como muestra una diferente, podría haber ocurrido que el intervalo no hubiera contenido a la media poblacional.</strong></p>
+<p>Muy fuerte esto.</p>
+<p>Pero la pregunta que surge ahora es: <strong>¿cuántos intervalos no contienen a la media poblacional?</strong></p>
+<p>Pues aquí entra el 95%.</p>
+<section id="el-95-de-los-intervalos-de-confianza-al-95-contienen-la-media-poblacional" class="level3">
+<h3 class="anchored" data-anchor-id="el-95-de-los-intervalos-de-confianza-al-95-contienen-la-media-poblacional">El 95% de los intervalos de confianza al 95% contienen la media poblacional</h3>
+<p>A continuación calculo el porcentaje de intervalos que sí contienen a la media poblacional, teniendo en cuenta a los 10^{4} que he calculado.</p>
 <div class="cell">
-<div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9519</code></pre>
+</div>
+</div>
+<p>Me sale que el 95,19% de los intervalos calculados contienen a la media poblacional.</p>
+<p>Eso es lo que quiere decir que tengas un intervalo de confianza al 95%. Significa que, de todos los intervalos que puedes calcular, el 95% tendrá al parámetro real. Pero el tuyo no sabes si está en ese 95% o no lo está (repito, en este experimento sí sabemos si está en ese porcentaje porque es un experimento controlado pero normalmente no lo sabes).</p>
+<p>De hecho, puedo cambiar el nivel de confianza, y el porcentaje cambiará acorde a ello:</p>
+<p><strong>Confianza al 99%</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+    pct
+  &lt;dbl&gt;
+1 0.990</code></pre>
+</div>
+</div>
+<p><strong>Confianza al 80%</strong></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+    pct
+  &lt;dbl&gt;
+1 0.803</code></pre>
 </div>
 </div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
