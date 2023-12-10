@@ -171,25 +171,36 @@ cookieconsent.run({
 <table class="table">
 <caption>Comparativa R base - Tidyverse</caption>
 <colgroup>
-<col style="width: 43%">
-<col style="width: 55%">
-<col style="width: 1%">
+<col style="width: 32%">
+<col style="width: 25%">
+<col style="width: 42%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td colspan="3">Tidyverse | R base | ==============================================================================+====================================================================================================+ <code>iris |&gt; group_by(Species) |&gt; summarise(mean(Sepal.Length))</code> | <code>aggregate(Sepal.Length ~ Species, iris, mean)</code> |</td>
+<td><strong>Operación</strong></td>
+<td><strong>Tidyverse</strong></td>
+<td><strong>R base</strong></td>
 </tr>
 <tr class="even">
-<td><code>str_extract("cosa123cosa", "\\d+")</code></td>
-<td><code>regmatches("cosa123cosa", m = regexpr("\\\\d+", "cosa123cosa", perl = TRUE))</code></td>
-<td></td>
+<td>Calcula la media de una métrica por grupo.</td>
+<td><code>iris |&gt; group_by(Species) |&gt; summarise(mean(Sepal.Length))</code></td>
+<td><code>aggregate(Sepal.Length ~ Species, iris, mean)</code></td>
 </tr>
 <tr class="odd">
-<td colspan="3"><code>iris |&gt; group_by(Species) |&gt; filter(Sepal.Lengh &gt;= mean(Sepal.Length))</code> | <code>do.call("rbind", lapply(split(iris, iris\$Species), function(df) {</code> | | <code>subset(df, Sepal.Length \&gt;= mean(df\$Sepal.Length))</code> | | <code>}))</code> |</td>
+<td>Extrae los números de un texto (aplica a cualquer patrón, como DNI, razón social, etc).</td>
+<td><code>str_extract("cosa123cosa", "\\d+")</code></td>
+<td><code>regmatches("cosa123cosa", m = regexpr("\\\\d+", "cosa123cosa", perl = TRUE))</code></td>
 </tr>
 <tr class="even">
+<td>Quédate con las observaciones cuyo valor (en una métrica) sea mayor que la media de su grupo.</td>
+<td><code>iris |&gt; group_by(Species) |&gt; filter(Sepal.Lengh &gt;= mean(Sepal.Length))</code></td>
+<td><code>do.call("rbind", lapply(split(iris, iris\$Species), function(df) { subset(df, Sepal.Length &gt;= mean(df\$Sepal.Length)) }))</code></td>
+</tr>
+<tr class="odd">
+<td>(*) Pasa de formato ancho a formato largo - Transformación <em>melt</em> - Pasa métricas a filas</td>
 <td><code>iris |&gt; pivot_longer(-Species)</code></td>
-<td colspan="2"><code>(*)</code> | <code>iris$id &lt;- 1:nrow(iris)</code> | <code>reshape(iris, idvar="id", direction="long",varying=list(1:4), v.names = "value", timevar="metric")</code></td>
+<td><code>iris$id &lt;- 1:nrow(iris)</code><br>
+<code>reshape(iris, idvar="id", direction="long",varying=list(1:4), v.names = "value", timevar="metric")</code></td>
 </tr>
 </tbody>
 </table>
