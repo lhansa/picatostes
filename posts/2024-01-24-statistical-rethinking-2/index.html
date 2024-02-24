@@ -210,10 +210,10 @@ cookieconsent.run({
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>distancia_por_paso <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">16</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(distancia_por_paso)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.447167</code></pre>
+<pre><code>[1] 2.721418</code></pre>
 </div>
 </div>
-<p>Nuestro sujeto ha recorrido 0.447167 desde la línea.</p>
+<p>Nuestro sujeto ha recorrido 2.7214181 desde la línea.</p>
 <p>Lo podemos extrapolar a 10000 sujetos:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pos <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>, <span class="fu">sum</span>(<span class="fu">runif</span>(<span class="dv">16</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)))</span>
