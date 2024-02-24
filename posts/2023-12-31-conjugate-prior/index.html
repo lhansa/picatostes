@@ -205,8 +205,7 @@ cookieconsent.run({
 <h2 class="anchored" data-anchor-id="prioris-conjugados">Prioris conjugados</h2>
 <p>En el caso de lanzar una moneda, estás trabajando con una binomial: tienes ciertos éxitos ante un número posible de casos.</p>
 <p>Si en este caso, usas como priori la distribución beta, entonces surgirá la magia.</p>
-<p>Dejo por ahora el código de golpe, porque es Nochevieja y tengo cosas que hacer.</p>
-<p>El Leo del futuro se encargará de contar esto bien.</p>
+<p>La distribución es</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>monedas <span class="ot">&lt;-</span> <span class="dv">100</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>caras <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, monedas, <span class="dv">1</span>)</span>
@@ -215,46 +214,63 @@ cookieconsent.run({
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>beta_alpha <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>beta_beta <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rbeta</span>(sample_size, beta_alpha, beta_beta))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rbeta</span>(sample_size, beta_alpha, beta_beta), <span class="at">col =</span> <span class="st">"#800080"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/todo-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/setup-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">expand.grid</span>(caras, p_cara))</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"caras"</span>, <span class="st">"p_cara"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(df<span class="sc">$</span>p_cara, beta_alpha, beta_beta)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># df$prior &lt;- dunif(df$p_cara)</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(df<span class="sc">$</span>caras, monedas, df<span class="sc">$</span>p_cara)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>posteriori <span class="ot">&lt;-</span> df<span class="sc">$</span>likelihood <span class="sc">*</span> df<span class="sc">$</span>prior</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>std_posteriori <span class="ot">&lt;-</span> df<span class="sc">$</span>posteriori <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>posteriori)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>caras_observadas <span class="ot">&lt;-</span> <span class="dv">70</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>     df<span class="sc">$</span>posteriori[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas] <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>posteriori[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas]), </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">"l"</span>)</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      df<span class="sc">$</span>prior[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas] <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>prior[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas]), </span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>posteriori_simulation <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                               beta_alpha <span class="sc">+</span> caras_observadas, </span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                               beta_beta <span class="sc">+</span> monedas <span class="sc">-</span> caras_observadas)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>posteriori_simulation <span class="ot">&lt;-</span> posteriori_simulation <span class="sc">/</span> <span class="fu">sum</span>(posteriori_simulation)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>      posteriori_simulation, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"caras"</span>, <span class="st">"p_cara"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Y podemos simular la posteriori con el método del mallado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(df<span class="sc">$</span>p_cara, beta_alpha, beta_beta)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df$prior &lt;- dunif(df$p_cara)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(df<span class="sc">$</span>caras, monedas, df<span class="sc">$</span>p_cara)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>posteriori <span class="ot">&lt;-</span> df<span class="sc">$</span>likelihood <span class="sc">*</span> df<span class="sc">$</span>prior</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>std_posteriori <span class="ot">&lt;-</span> df<span class="sc">$</span>posteriori <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>posteriori)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>caras_observadas <span class="ot">&lt;-</span> <span class="dv">70</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>     df<span class="sc">$</span>posteriori[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas] <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>posteriori[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas]), </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">"o"</span>, <span class="at">xlab =</span> <span class="st">"Probabilidad de cara"</span>, <span class="at">ylab =</span> <span class="st">"Probabilidad"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>      df<span class="sc">$</span>prior[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas] <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>prior[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas]), </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/todo-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/posterior1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>La magia está en que, dado que la distribución a priori es una beta, no necesitamos simular la posteriori, sino que sabemos que ya seguirá una distribución en concreto (una beta también, con pequeños cambios en sus parámetros);</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>posteriori_simulation <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                               beta_alpha <span class="sc">+</span> caras_observadas, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                               beta_beta <span class="sc">+</span> monedas <span class="sc">-</span> caras_observadas)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>posteriori_simulation <span class="ot">&lt;-</span> posteriori_simulation <span class="sc">/</span> <span class="fu">sum</span>(posteriori_simulation)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>     df<span class="sc">$</span>posteriori[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas] <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>posteriori[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas]), </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">"o"</span>, <span class="at">xlab =</span> <span class="st">"Probabilidad de cara"</span>, <span class="at">ylab =</span> <span class="st">"Probabilidad"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>      df<span class="sc">$</span>prior[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas] <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>prior[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas]), </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>      posteriori_simulation, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/posteriori-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
