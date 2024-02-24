@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Leonardo Hansa">
-<meta name="description" content="Evolución de la población española por edades desde 1971, con R y ggplot2.">
+<meta name="description" content="Tutorial en R de cómo usar las prioris conjugadas en estadística bayesiana, con el ejemplo de lanzar una moneda">
 
-<title>Longitud sin anchura - Pirámide de población española, desde 1971</title>
+<title>Longitud sin anchura - ¿Cómo se usan las prioris conjugadas?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -120,10 +154,10 @@ cookieconsent.run({
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Pirámide de población española, desde 1971</h1>
+      <h1 class="title">¿Cómo se usan las prioris conjugadas?</h1>
                   <div>
         <div class="description">
-          Evolución de la población española por edades desde 1971, con R y ggplot2.
+          Tutorial en R de cómo usar las prioris conjugadas en estadística bayesiana, con el ejemplo de lanzar una moneda
         </div>
       </div>
                           <div class="quarto-categories">
@@ -145,7 +179,7 @@ cookieconsent.run({
       <div>
       <div class="quarto-title-meta-heading">Fecha de publicación</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">20 de octubre de 2023</p>
+        <p class="date">31 de diciembre de 2023</p>
       </div>
     </div>
     
@@ -164,27 +198,70 @@ cookieconsent.run({
 
 
 
-<p>Te traigo una película de terror, llamada <em>La quiebra de las pensiones en España</em>.</p>
-<p>Es un GIF que he hecho con la librería ggplot2 de R, y gganimate.</p>
-<p>Si quieres el código, me lo pides y te lo mando (o lo buscas en mi GitHub).</p>
-<p>Los datos vienen del INE.</p>
-<p>En el gráfico aparecen unos valores missing en un momento dado, pero ni idea de por qué, porque dato hay.</p>
+<p>En estadística bayesiana, cuando buscas estimar un parámetro, lo que vas a obtener es una distribución de este parámetro. O sea, no obtienes un valor preciso, sino unas probabilidades asociadas a varios valores, de forma que algunos serán más probables que otros.</p>
+<p>Un método intuitivo de conseguir esta distribución es usar el método del mallado ( <em>grid approximation</em> ). Con este método, relacionas todos los casos posibles, calculas una verosimilitud para cada caso, y lo multiplicas por una probabilidad a priori que decidas. Ese producto es la distribución que buscas para tu parámetro, la posteriori.</p>
+<p>En algunas situaciones, usar una priori en concreto te puede simplificar luego el cálculo, ya que no te hará falta aplicar los cálculos del mallado: puedes, pero el resultado será el mismo.</p>
+<section id="prioris-conjugados" class="level2">
+<h2 class="anchored" data-anchor-id="prioris-conjugados">Prioris conjugados</h2>
+<p>En el caso de lanzar una moneda, estás trabajando con una binomial: tienes ciertos éxitos ante un número posible de casos.</p>
+<p>Si en este caso, usas como priori la distribución beta, entonces surgirá la magia.</p>
+<p>Dejo por ahora el código de golpe, porque es Nochevieja y tengo cosas que hacer.</p>
+<p>El Leo del futuro se encargará de contar esto bien.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] ""</code></pre>
-</div>
-</div>
-<p><img src="piramide-poblacion.gif" class="img-fluid"></p>
-<p>Puede serte más práctico tener todos los gráficos seguidos, en lugar de quedarte mirando un GIF.</p>
-<p>Aquí los tienes:</p>
-<div class="quarto-figure quarto-figure-center">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>monedas <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>caras <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, monedas, <span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>p_cara <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.01</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>beta_alpha <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>beta_beta <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">rbeta</span>(sample_size, beta_alpha, beta_beta))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="facets.jpeg" class="img-fluid figure-img"></p>
-<figcaption>Pirámides de población desde 1971 hasta 2021</figcaption>
+<p><img src="index_files/figure-html/todo-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">expand.grid</span>(caras, p_cara))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"caras"</span>, <span class="st">"p_cara"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>prior <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(df<span class="sc">$</span>p_cara, beta_alpha, beta_beta)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># df$prior &lt;- dunif(df$p_cara)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>likelihood <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(df<span class="sc">$</span>caras, monedas, df<span class="sc">$</span>p_cara)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>posteriori <span class="ot">&lt;-</span> df<span class="sc">$</span>likelihood <span class="sc">*</span> df<span class="sc">$</span>prior</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>std_posteriori <span class="ot">&lt;-</span> df<span class="sc">$</span>posteriori <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>posteriori)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>caras_observadas <span class="ot">&lt;-</span> <span class="dv">70</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>     df<span class="sc">$</span>posteriori[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas] <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>posteriori[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas]), </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">"l"</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>      df<span class="sc">$</span>prior[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas] <span class="sc">/</span> <span class="fu">sum</span>(df<span class="sc">$</span>prior[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas]), </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>posteriori_simulation <span class="ot">&lt;-</span> <span class="fu">dbeta</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                               beta_alpha <span class="sc">+</span> caras_observadas, </span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                               beta_beta <span class="sc">+</span> monedas <span class="sc">-</span> caras_observadas)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>posteriori_simulation <span class="ot">&lt;-</span> posteriori_simulation <span class="sc">/</span> <span class="fu">sum</span>(posteriori_simulation)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(df<span class="sc">$</span>p_cara[df<span class="sc">$</span>caras <span class="sc">==</span> caras_observadas], </span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>      posteriori_simulation, <span class="at">col =</span> <span class="st">"blue"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/todo-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

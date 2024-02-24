@@ -2,6 +2,9 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2024-01-24-statistical-rethinking-2/index.html",
+      "/posts/2023-12-31-conjugate-prior/index.html",
+      "/posts/2023-12-27-rethinking-1/index.html",
       "/posts/2023-12-22-survival-analysis/index.html",
       "/posts/2023-12-07-tidyverse-rbase/index.html",
       "/posts/2023-12-05-adventofcode-ii/index.html",
