@@ -319,10 +319,12 @@ window.Quarto = {
 <p>Como estamos en un modelo bayesiano, necesitamos unos prioris para ambos parámetros. Los prioris son distribuciones de estos parámetros que consideramos razonables.</p>
 <p><span class="math display">\[
 h_i \sim \cal{N}(\mu, \sigma)
-\mu \sim \cal{N}(178, 20) \\
+\\
+\mu \sim \cal{N}(178, 20)
+\\
 \sigma \sim \cal{U}(0, 50)
 \]</span></p>
-<p>Estamos dando como distribución a priori de la media una normal centrada en 178 y con un rango de 40cm con una probablidad de 95%.</p>
+<p>Estamos dando como distribución a priori de la media una normal centrada en <span class="math inline">\(\cal{178}\)</span> y con un rango de <span class="math inline">\(\cal{40}\)</span>cm con una probablidad de 95%.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="dv">178</span>, <span class="dv">20</span>), <span class="at">from =</span> <span class="dv">100</span>, <span class="at">to =</span> <span class="dv">250</span>, <span class="at">col =</span> <span class="st">"#800080"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -378,8 +380,8 @@ h_i \sim \cal{N}(\mu, \sigma)
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(fit_altura)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            mean        sd       5.5%      94.5%
-mu    154.654587 0.4172070 153.987810 155.321365
-sigma   7.762174 0.2950652   7.290603   8.233745</code></pre>
+mu    154.654665 0.4172242 153.987860 155.321470
+sigma   7.762495 0.2950957   7.290875   8.234115</code></pre>
 </div>
 </div>
 <div class="cell">
