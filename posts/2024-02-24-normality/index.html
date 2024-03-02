@@ -9,7 +9,7 @@
 <meta name="author" content="Leonardo Hansa">
 <meta name="description" content="Exploración de la distribución normal con R">
 
-<title>Longitud sin anchura - ¿Cómo surge la distribución normal?</title>
+<title>Picatostes - ¿Cómo surge la distribución normal?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -163,7 +163,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Longitud sin anchura</span>
+    <span class="navbar-title">Picatostes</span>
     </a>
   </div>
           <ul class="navbar-nav navbar-nav-scroll me-auto">
@@ -380,8 +380,8 @@ h_i \sim \cal{N}(\mu, \sigma)
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">precis</span>(fit_altura)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            mean        sd       5.5%      94.5%
-mu    154.654665 0.4172242 153.987860 155.321470
-sigma   7.762495 0.2950957   7.290875   8.234115</code></pre>
+mu    154.653358 0.4172084 153.986578 155.320137
+sigma   7.762203 0.2950680   7.290628   8.233779</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -479,24 +479,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/longitudsinanchura\.com");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-          if (link.getAttribute("rel") === null) {
-            link.setAttribute("rel", "noopener");
-          }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
